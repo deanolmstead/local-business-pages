@@ -10,36 +10,91 @@
     :root { --accent: #b8621a; }
     * { box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: #fafaf8; color: #1a1917; margin: 0; }
-    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; transition: background 0.4s, padding 0.3s, box-shadow 0.3s; }
-    #nav.scrolled { background: rgba(250,250,248,0.92); backdrop-filter: blur(12px); padding: 0.8rem 2.5rem; border-bottom: 1px solid rgba(0,0,0,0.08); box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
-    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #fff; transition: color 0.4s; }
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s, box-shadow 0.3s;
+    }
+    #nav.scrolled {
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 0.8rem 2.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #fff; letter-spacing: 0.01em; transition: color 0.4s; }
     #nav.scrolled .nav-logo { color: var(--accent); }
     .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 2rem; transition: color 0.2s; }
     #nav.scrolled .nav-links a { color: rgba(26,25,23,0.6); }
     .nav-links a:hover { color: var(--accent) !important; }
-    #hero { height: 100vh; min-height: 600px; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 0 0 6rem 6rem; }
-    #hero-bg { position: absolute; inset: -10%; z-index: 0; background: url('hero.png') center center / cover no-repeat; will-change: transform; }
-    #hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(105deg, rgba(15,10,5,0.88) 0%, rgba(15,10,5,0.62) 45%, rgba(15,10,5,0.1) 100%); }
+
+    /* HERO — LEFT ALIGNED */
+    #hero {
+      height: 100vh; min-height: 600px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: flex-end;
+      padding: 0 0 6rem 6rem;
+    }
+    @media (max-width: 700px) { #hero { padding: 0 2rem 5rem; } }
+    #hero-bg {
+      position: absolute; inset: -10%; z-index: 0;
+      background: url('hero.png') center center / cover no-repeat;
+      will-change: transform;
+    }
+    #hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(105deg, rgba(15,10,5,0.88) 0%, rgba(15,10,5,0.62) 45%, rgba(15,10,5,0.1) 100%);
+    }
     #hero-content { position: relative; z-index: 2; max-width: 540px; }
     .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
     .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 5.5vw, 4.8rem); font-weight: 700; line-height: 1.1; margin: 0 0 1.25rem; color: #fff; }
     .hero-sub { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.78); line-height: 1.75; margin-bottom: 2.25rem; max-width: 440px; }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .hero-cta { display: inline-block; background: var(--accent); color: #fff; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 2rem; border-radius: 3px; text-decoration: none; }
-    .hero-cta-ghost { display: inline-block; background: transparent; color: rgba(255,255,255,0.85); border: 1.5px solid rgba(255,255,255,0.4); font-weight: 500; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 2rem; border-radius: 3px; text-decoration: none; }
+    .hero-cta {
+      display: inline-block; background: var(--accent); color: #fff;
+      font-weight: 600; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.9rem 2rem; border-radius: 3px; text-decoration: none;
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .hero-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .hero-cta-ghost {
+      display: inline-block; background: transparent; color: rgba(255,255,255,0.85);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      font-weight: 500; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.9rem 2rem; border-radius: 3px; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .hero-cta-ghost:hover { border-color: rgba(255,255,255,0.9); color: #fff; }
+
+    /* SECTIONS */
     section { padding: 5.5rem 2rem; }
     .section-inner { max-width: 1020px; margin: 0 auto; }
     .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 700; line-height: 1.12; margin: 0 0 1.5rem; color: #1a1917; }
+
+    /* SERVICES */
     #services { background: #fafaf8; }
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
-    .service-card { padding: 2rem; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 4px; }
+    .service-card {
+      padding: 2rem; background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 4px;
+      transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .service-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.09); border-color: rgba(184,98,26,0.25); transform: translateY(-2px); }
     .service-icon { width: 36px; height: 3px; background: var(--accent); margin-bottom: 1.25rem; border-radius: 2px; }
     .service-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: #1a1917; margin-bottom: 0.6rem; }
     .service-desc { font-size: 0.87rem; color: rgba(26,25,23,0.55); line-height: 1.7; }
+
+    /* HOURS */
     #hours { background: #f5f2ee; }
     .hours-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    @media (max-width: 640px) { .hours-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
     .hours-row { display: flex; justify-content: space-between; padding: 0.85rem 0; border-bottom: 1px solid rgba(0,0,0,0.07); font-size: 0.92rem; }
+    .hours-row:last-child { border-bottom: none; }
     .hours-day { color: rgba(26,25,23,0.45); font-weight: 500; }
     .hours-time { color: #1a1917; font-weight: 500; }
     .hours-closed { color: rgba(26,25,23,0.25); font-style: italic; }
@@ -47,7 +102,10 @@
     .hours-aside-quote { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic; line-height: 1.6; color: rgba(26,25,23,0.8); margin-bottom: 1rem; }
     .hours-aside-attr { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
     .hours-divider { height: 1px; background: rgba(0,0,0,0.07); margin: 1.5rem 0; }
-    .call-link { display: inline-block; background: var(--accent); color: #fff; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border-radius: 3px; text-decoration: none; }
+    .call-link { display: inline-block; background: var(--accent); color: #fff; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border-radius: 3px; text-decoration: none; transition: filter 0.2s; }
+    .call-link:hover { filter: brightness(1.1); }
+
+    /* REVIEWS */
     #reviews { background: #fafaf8; }
     .rating-banner { display: flex; align-items: center; gap: 2rem; padding: 1.75rem 2rem; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 4px; margin-bottom: 2.5rem; }
     .rating-num { font-family: 'Playfair Display', serif; font-size: 3.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
@@ -58,57 +116,100 @@
     .review-stars { color: var(--accent); font-size: 0.82rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
     .review-text { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; line-height: 1.65; color: rgba(26,25,23,0.8); margin-bottom: 1.25rem; }
     .review-author { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(26,25,23,0.38); }
+
+    /* ABOUT */
     #about { background: #f5f2ee; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
     .about-text { font-size: 1.02rem; line-height: 1.85; color: rgba(26,25,23,0.68); margin-bottom: 1.25rem; }
     .contact-block { margin-top: 2rem; }
     .contact-row { display: flex; gap: 1.5rem; align-items: baseline; padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .contact-row:last-child { border-bottom: none; }
     .contact-lbl { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); min-width: 72px; }
     .contact-val { font-size: 0.96rem; color: #1a1917; }
+    .contact-val a { color: #1a1917; text-decoration: none; border-bottom: 1px solid rgba(184,98,26,0.3); transition: border-color 0.2s; }
+    .contact-val a:hover { border-color: var(--accent); }
     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); border-radius: 4px; overflow: hidden; }
     .stat-box { background: #fff; padding: 1.75rem; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1; }
     .stat-lbl { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(26,25,23,0.38); margin-top: 0.3rem; }
-    footer { background: #1a1917; color: rgba(255,255,255,0.5); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+
+    /* FOOTER */
+    footer {
+      background: #1a1917; color: rgba(255,255,255,0.5);
+      padding: 2rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
     footer p { font-size: 0.76rem; }
     footer a { color: var(--accent); text-decoration: none; font-size: 0.82rem; font-weight: 500; }
+
+    /* REVEAL */
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: none; }
     .reveal-delay-1 { transition-delay: 0.12s; }
     .reveal-delay-2 { transition-delay: 0.22s; }
     .reveal-delay-3 { transition-delay: 0.32s; }
+    .reveal-delay-4 { transition-delay: 0.42s; }
   </style>
 </head>
 <body>
+
   <nav id="nav">
     <div class="nav-logo">Sunland Insurance</div>
-    <div class="nav-links"><a href="#services">Coverage</a><a href="#hours">Hours</a><a href="#reviews">Reviews</a><a href="#about">About</a></div>
+    <div class="nav-links">
+      <a href="#services">Coverage</a>
+      <a href="#hours">Hours</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#about">About</a>
+    </div>
   </nav>
+
+  <!-- HERO: LEFT ALIGNED -->
   <section id="hero">
     <div id="hero-bg"></div>
     <div id="hero-overlay"></div>
     <div id="hero-content">
-      <p class="hero-eyebrow">Fresno, CA &middot; Cesar Chavez Blvd</p>
+      <p class="hero-eyebrow">Fresno, CA · Cesar Chavez Blvd</p>
       <h1 class="hero-title">Sunland<br>Insurance<br>Services</h1>
-      <p class="hero-sub">Friendly, bilingual staff. Multiple carriers. The right coverage at the right price &mdash; explained clearly, every time.</p>
+      <p class="hero-sub">Friendly, bilingual staff. Multiple carriers. The right coverage at the right price — explained clearly, every time.</p>
       <div class="hero-actions">
         <a href="tel:5592517861" class="hero-cta">Call (559) 251-7861</a>
         <a href="#services" class="hero-cta-ghost">See Coverage</a>
       </div>
     </div>
   </section>
+
+  <!-- SERVICES -->
   <section id="services">
     <div class="section-inner">
       <p class="section-label reveal">What We Cover</p>
       <h2 class="section-title reveal">Insurance for<br>Every Stage of Life</h2>
       <div class="services-grid">
-        <div class="service-card reveal"><div class="service-icon"></div><div class="service-name">Auto Insurance</div><div class="service-desc">Liability, comprehensive, and collision from multiple carriers &mdash; we shop the market to find your best rate.</div></div>
-        <div class="service-card reveal reveal-delay-1"><div class="service-icon"></div><div class="service-name">Home &amp; Renters</div><div class="service-desc">Protect your home and belongings. We walk you through every line so you know exactly what you're covered for.</div></div>
-        <div class="service-card reveal reveal-delay-2"><div class="service-icon"></div><div class="service-name">Life Insurance</div><div class="service-desc">Term and whole life options that give your family security. Simple, pressure-free process.</div></div>
-        <div class="service-card reveal reveal-delay-3"><div class="service-icon"></div><div class="service-name">Commercial</div><div class="service-desc">Business liability, commercial auto, and workers' comp for Fresno small business owners. Bilingual service available.</div></div>
+        <div class="service-card reveal">
+          <div class="service-icon"></div>
+          <div class="service-name">Auto Insurance</div>
+          <div class="service-desc">Liability, comprehensive, and collision from multiple carriers — we shop the market to find your best rate.</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon"></div>
+          <div class="service-name">Home & Renters</div>
+          <div class="service-desc">Protect your home and belongings. We walk you through every line so you know exactly what you're covered for.</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon"></div>
+          <div class="service-name">Life Insurance</div>
+          <div class="service-desc">Term and whole life options that give your family security. Simple, pressure-free process.</div>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon"></div>
+          <div class="service-name">Commercial</div>
+          <div class="service-desc">Business liability, commercial auto, and workers' comp for Fresno small business owners. Bilingual service available.</div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- HOURS -->
   <section id="hours">
     <div class="section-inner">
       <div class="hours-layout">
@@ -116,19 +217,19 @@
           <p class="section-label">When We're Open</p>
           <h2 class="section-title">Office Hours</h2>
           <div>
-            <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-time">8:30 AM &ndash; 5:30 PM</span></div>
-            <div class="hours-row"><span class="hours-day">Tuesday</span><span class="hours-time">8:30 AM &ndash; 5:30 PM</span></div>
-            <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">8:30 AM &ndash; 5:30 PM</span></div>
-            <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">8:30 AM &ndash; 5:30 PM</span></div>
-            <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">8:30 AM &ndash; 5:30 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-time">8:30 AM – 5:30 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Tuesday</span><span class="hours-time">8:30 AM – 5:30 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">8:30 AM – 5:30 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">8:30 AM – 5:30 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">8:30 AM – 5:30 PM</span></div>
             <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-closed">Closed</span></div>
             <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-closed">Closed</span></div>
           </div>
         </div>
         <div class="reveal reveal-delay-1">
           <div class="hours-aside">
-            <div class="hours-aside-quote">"Always kind and willing to help. They explained what companies they have and the prices &mdash; we've referred family members and they all got a reasonable rate."</div>
-            <div class="hours-aside-attr">&mdash; Daisy Lozano, Google Review</div>
+            <div class="hours-aside-quote">"Always kind and willing to help. They explained what companies they have and the prices — we've referred family members and they all got a reasonable rate."</div>
+            <div class="hours-aside-attr">— Daisy Lozano, Google Review</div>
             <div class="hours-divider"></div>
             <p style="font-size:0.87rem;color:rgba(26,25,23,0.55);line-height:1.7;margin-bottom:1.25rem;">Walk-ins welcome. Spanish-speaking staff available.</p>
             <a href="tel:5592517861" class="call-link">(559) 251-7861</a>
@@ -137,36 +238,70 @@
       </div>
     </div>
   </section>
+
+  <!-- REVIEWS -->
   <section id="reviews">
     <div class="section-inner">
       <p class="section-label reveal">What Clients Say</p>
       <h2 class="section-title reveal">Trusted by Fresno Families</h2>
-      <div class="rating-banner reveal"><div class="rating-num">4.0</div><div><div class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div><div class="rating-sub">22 reviews on Google &middot; Fresno, CA</div></div></div>
+      <div class="rating-banner reveal">
+        <div class="rating-num">4.0</div>
+        <div>
+          <div class="rating-stars">★★★★☆</div>
+          <div class="rating-sub">22 reviews on Google · Fresno, CA</div>
+        </div>
+      </div>
       <div class="reviews-grid">
-        <div class="review-card reveal"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"Love the front ladies. They are awesome &mdash; always kind and willing to help. I've referred various people including family members and they all agree they got a reasonable price for their policy."</p><div class="review-author">&mdash; Daisy Lozano</div></div>
-        <div class="review-card reveal reveal-delay-1"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"They explained what companies they have and the pricing options clearly. Professional, bilingual staff who genuinely take care of you. Exactly the kind of insurance office a neighborhood needs."</p><div class="review-author">&mdash; M.J., Google Reviewer</div></div>
-        <div class="review-card reveal reveal-delay-2"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"Found a better rate than anywhere else after they shopped multiple carriers for me. Patient, clear, and got me set up quickly. Highly recommend for anyone in the Fresno area looking for auto coverage."</p><div class="review-author">&mdash; Google Reviewer</div></div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Love the front ladies. They are awesome — always kind and willing to help. I've referred various people including family members and they all agree they got a reasonable price for their policy."</p>
+          <div class="review-author">— Daisy Lozano</div>
+        </div>
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"They explained what companies they have and the pricing options clearly. Professional, bilingual staff who genuinely take care of you. Exactly the kind of insurance office a neighborhood needs."</p>
+          <div class="review-author">— M.J., Google Reviewer</div>
+        </div>
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Found a better rate than anywhere else after they shopped multiple carriers for me. Patient, clear, and got me set up quickly. Highly recommend for anyone in the Fresno area looking for auto coverage."</p>
+          <div class="review-author">— Google Reviewer</div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- ABOUT -->
   <section id="about">
     <div class="section-inner">
       <div class="about-grid">
         <div class="reveal">
           <p class="section-label">About Us</p>
           <h2 class="section-title">Your Neighborhood<br>Insurance Team</h2>
-          <p class="about-text">Sunland Insurance Services is located on Cesar Chavez Boulevard in Fresno, serving families and small businesses who want someone to actually explain their coverage options &mdash; not just hand them a form. They work with multiple carriers, which means they shop rates on your behalf.</p>
+          <p class="about-text">Sunland Insurance Services is located on Cesar Chavez Boulevard in Fresno, serving families and small businesses who want someone to actually explain their coverage options — not just hand them a form. They work with multiple carriers, which means they shop rates on your behalf.</p>
           <p class="about-text">Bilingual staff, no pressure, and a team that genuinely takes time with every client. Walk in or call during business hours.</p>
           <div class="contact-block">
-            <div class="contact-row"><span class="contact-lbl">Address</span><span class="contact-val">4951 Cesar Chavez Blvd<br>Fresno, CA 93727</span></div>
-            <div class="contact-row"><span class="contact-lbl">Phone</span><span class="contact-val"><a href="tel:5592517861">(559) 251-7861</a></span></div>
-            <div class="contact-row"><span class="contact-lbl">Hours</span><span class="contact-val">Mon &ndash; Fri &middot; 8:30 AM &ndash; 5:30 PM</span></div>
-            <div class="contact-row"><span class="contact-lbl">Language</span><span class="contact-val">English &amp; Spanish</span></div>
+            <div class="contact-row">
+              <span class="contact-lbl">Address</span>
+              <span class="contact-val">4951 Cesar Chavez Blvd<br>Fresno, CA 93727</span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-lbl">Phone</span>
+              <span class="contact-val"><a href="tel:5592517861">(559) 251-7861</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-lbl">Hours</span>
+              <span class="contact-val">Mon – Fri · 8:30 AM – 5:30 PM</span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-lbl">Language</span>
+              <span class="contact-val">English & Spanish</span>
+            </div>
           </div>
         </div>
         <div class="reveal reveal-delay-1">
           <div class="stat-grid">
-            <div class="stat-box"><div class="stat-num">4.0&#9733;</div><div class="stat-lbl">Google Rating</div></div>
+            <div class="stat-box"><div class="stat-num">4.0★</div><div class="stat-lbl">Google Rating</div></div>
             <div class="stat-box"><div class="stat-num">22</div><div class="stat-lbl">Reviews</div></div>
             <div class="stat-box"><div class="stat-num">Multi</div><div class="stat-lbl">Carriers</div></div>
             <div class="stat-box"><div class="stat-num">2</div><div class="stat-lbl">Languages</div></div>
@@ -175,17 +310,45 @@
       </div>
     </div>
   </section>
+
   <footer>
-    <p>Sunland Insurance Services &middot; 4951 Cesar Chavez Blvd, Fresno, CA 93727 &middot; (559) 251-7861</p>
-    <a href="tel:5592517861">Call Now &rarr;</a>
+    <p>Sunland Insurance Services · 4951 Cesar Chavez Blvd, Fresno, CA 93727 · (559) 251-7861</p>
+    <a href="tel:5592517861">Call Now →</a>
   </footer>
+
   <script>
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
     const heroBg = document.getElementById('hero-bg');
-    window.addEventListener('scroll', () => { heroBg.style.transform = 'translateY(' + (window.scrollY * 0.38) + 'px)'; });
-    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.12 });
+    window.addEventListener('scroll', () => {
+      heroBg.style.transform = `translateY(${window.scrollY * 0.38}px)`;
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Canvas accent — darken if needed for light-theme contrast
+    const img = new Image(); img.crossOrigin = 'anonymous'; img.src = 'hero.png';
+    img.onload = () => {
+      try {
+        const c = document.createElement('canvas'); c.width = 50; c.height = 50;
+        const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, 50, 50);
+        const d = ctx.getImageData(0,0,50,50).data;
+        let r=0,g=0,b=0,n=0;
+        for(let i=0;i<d.length;i+=4){
+          const s=Math.max(d[i],d[i+1],d[i+2])-Math.min(d[i],d[i+1],d[i+2]);
+          const w=1+s/128; r+=d[i]*w; g+=d[i+1]*w; b+=d[i+2]*w; n+=w;
+        }
+        let nr=r/n|0, ng=g/n|0, nb=b/n|0;
+        // Ensure contrast on white bg — darken by scaling down if too bright
+        const brightness = (nr*299 + ng*587 + nb*114) / 1000;
+        if (brightness > 140) { const scale = 100/brightness; nr=nr*scale|0; ng=ng*scale|0; nb=nb*scale|0; }
+        document.documentElement.style.setProperty('--accent', `rgb(${nr},${ng},${nb})`);
+      } catch(e) {}
+    };
   </script>
 </body>
 </html>
