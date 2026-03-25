@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>United Electrical Solutions Fresno — Expert Electricians</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --accent: #f59e0b; --bg: #0c0b09; --bg2: #111009; --text: rgba(245,240,235,0.88); --muted: rgba(245,240,235,0.42); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.3s, border 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(12,11,9,0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.2rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff;
+    }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    /* Square button */
+    .nav-sq {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.55rem 1.4rem; border-radius: 0;
+      border: 1.5px solid var(--accent); color: var(--accent); text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-sq:hover { background: var(--accent); color: #0c0b09; }
+    @media (max-width: 700px) { .nav-links { display: none; } }
+
+    /* HERO — centered text, split screen */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; padding-top: 72px; }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3.5rem; background: var(--bg);
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.93; text-transform: uppercase;
+      color: #fff; margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      font-size: 1rem; font-weight: 300; color: rgba(245,240,235,0.55);
+      line-height: 1.72; margin-bottom: 2.5rem; max-width: 400px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    /* Square CTA */
+    .btn-sq {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.9rem 2rem; border-radius: 0;
+      background: var(--accent); color: #0c0b09; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-sq:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-sq-ghost {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.9rem 2rem; border-radius: 0;
+      border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-sq-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right-img {
+      position: absolute; inset: 0;
+      background-image: url('hero.png'); background-size: cover; background-position: center;
+      will-change: transform;
+    }
+    .hero-right::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, #0c0b09 0%, transparent 18%);
+    }
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 40vh; }
+      .hero-left { padding: 3rem 1.5rem; }
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 2rem; }
+    .section-bg2 { background: var(--bg2); }
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    /* SPLIT HEADER (label left, title right) */
+    .hdr-split {
+      display: grid; grid-template-columns: 200px 1fr; gap: 2rem;
+      align-items: start; margin-bottom: 3.5rem;
+    }
+    @media (max-width: 640px) { .hdr-split { grid-template-columns: 1fr; } }
+    .hdr-split .lbl {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--accent); padding-top: 0.6rem;
+    }
+    .hdr-split h2 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; letter-spacing: 0.02em;
+      color: #fff; line-height: 1.05;
+    }
+    .hdr-split p { font-size: 0.95rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.72; }
+
+    /* LEFT ACCENT-BAR CARDS */
+    .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1px; }
+    .svc-bar-card {
+      background: var(--bg2); border-left: 3px solid transparent;
+      padding: 1.75rem 1.75rem 1.75rem 1.5rem;
+      transition: border-color 0.22s, background 0.22s;
+    }
+    .svc-bar-card:hover { border-left-color: var(--accent); background: #17140f; }
+    .svc-num {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 1.6rem; color: rgba(255,255,255,0.08); line-height: 1; margin-bottom: 0.6rem;
+    }
+    .svc-name {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.05rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(245,240,235,0.88); margin-bottom: 0.45rem;
+    }
+    .svc-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+
+    /* STAT BOXES GRID */
+    .stat-boxes {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) { .stat-boxes { grid-template-columns: repeat(2,1fr); } }
+    .stat-box {
+      background: var(--bg2); padding: 2rem 1.5rem; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-box:last-child { border-right: none; }
+    .sb-num {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 2.5rem; color: var(--accent); line-height: 1;
+    }
+    .sb-lbl { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.35rem; }
+
+    /* HOURS */
+    .hours-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 680px) { .hours-wrap { grid-template-columns: 1fr; } }
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .hours-table tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table td { padding: 0.85rem 0; font-size: 0.88rem; color: rgba(245,240,235,0.6); }
+    .hours-table td:first-child {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(245,240,235,0.3); width: 130px;
+    }
+    .today td { color: var(--accent) !important; }
+
+    /* EQUAL REVIEW GRID */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.25rem; margin-top: 1rem; }
+    .rev-card {
+      background: var(--bg2); border: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem; border-radius: 4px;
+      transition: border-color 0.22s;
+    }
+    .rev-card:hover { border-color: rgba(245,158,11,0.3); }
+    .rev-stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.9rem; }
+    .rev-text { font-size: 0.92rem; color: rgba(245,240,235,0.68); line-height: 1.72; font-style: italic; margin-bottom: 1rem; }
+    .rev-author {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.77rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(245,240,235,0.3);
+    }
+
+    /* CTA — accent bg */
+    .cta-section { background: var(--accent); padding: 5rem 2rem; text-align: center; }
+    .cta-section h2 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase;
+      color: #0c0b09; margin-bottom: 0.5rem;
+    }
+    .cta-section p { color: rgba(12,11,9,0.6); margin-bottom: 2rem; }
+    .cta-phone-dark {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 3rem; color: #0c0b09; text-decoration: none; display: block; margin-bottom: 2rem;
+    }
+    .btn-sq-dark {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.95rem 2.5rem; border-radius: 0;
+      background: #0c0b09; color: #fff; text-decoration: none; transition: opacity 0.2s;
+    }
+    .btn-sq-dark:hover { opacity: 0.85; }
+
+    /* FOOTER */
+    footer { background: #080706; border-top: 1px solid rgba(255,255,255,0.05); padding: 2.5rem 2rem; }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      font-size: 0.82rem; color: rgba(255,255,255,0.25);
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 1rem; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+    }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">United Electrical</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#hours">Hours</a>
+    <a href="#reviews">Reviews</a>
+  </div>
+  <a href="tel:5593387144" class="nav-sq">Call Now</a>
+</nav>
+
+<!-- HERO — split screen -->
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Fresno, CA · Licensed Electricians</p>
+    <h1 class="hero-title">United.<br/><em>Wired.</em><br/>Ready.</h1>
+    <p class="hero-sub">Expert electrical services for homes and businesses across Fresno. Rated 4.5 stars. Open 7 days a week.</p>
+    <div class="hero-actions">
+      <a href="tel:5593387144" class="btn-sq">📞 (559) 338-7144</a>
+      <a href="#services" class="btn-sq-ghost">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-img" id="heroBg"></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section-bg2" id="services">
+  <div class="container">
+    <div class="hdr-split reveal">
+      <span class="lbl">Expertise</span>
+      <div>
+        <h2>What We Handle</h2>
+        <p>From new construction wiring to panel replacements — precision and safety on every job.</p>
+      </div>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-bar-card">
+        <div class="svc-num">01</div>
+        <div class="svc-name">Panel Upgrades</div>
+        <p class="svc-desc">Modernize your panel to safely support today's loads and meet California code requirements.</p>
+      </div>
+      <div class="svc-bar-card">
+        <div class="svc-num">02</div>
+        <div class="svc-name">Residential Wiring</div>
+        <p class="svc-desc">Complete home wiring for new builds, additions, and full rewires. Done cleanly and on schedule.</p>
+      </div>
+      <div class="svc-bar-card">
+        <div class="svc-num">03</div>
+        <div class="svc-name">Outlet Installation</div>
+        <p class="svc-desc">New outlets, GFCI protection, USB outlets, and dedicated circuits for appliances and home offices.</p>
+      </div>
+      <div class="svc-bar-card">
+        <div class="svc-num">04</div>
+        <div class="svc-name">Lighting Solutions</div>
+        <p class="svc-desc">Recessed lighting, LED retrofits, ceiling fans, and exterior fixture installation.</p>
+      </div>
+      <div class="svc-bar-card">
+        <div class="svc-num">05</div>
+        <div class="svc-name">Safety Inspections</div>
+        <p class="svc-desc">Comprehensive inspections to detect hazards, outdated wiring, and fire risks before they become problems.</p>
+      </div>
+      <div class="svc-bar-card">
+        <div class="svc-num">06</div>
+        <div class="svc-name">Emergency Repairs</div>
+        <p class="svc-desc">Electrical problems don't keep business hours. We respond fast to restore your power and safety.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section id="hours">
+  <div class="container">
+    <div class="hours-wrap">
+      <div class="reveal">
+        <div class="hdr-split" style="grid-template-columns:120px 1fr;margin-bottom:1.5rem;">
+          <span class="lbl">When to Call</span>
+          <div>
+            <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(1.8rem,3vw,2.4rem);text-transform:uppercase;color:#fff;">Open Every Day</h2>
+            <p style="font-size:0.92rem;color:var(--muted);margin-top:0.5rem;line-height:1.7;">7 AM to 8 PM, seven days a week — including weekends.</p>
+          </div>
+        </div>
+        <a href="tel:5593387144" class="btn-sq" style="display:inline-block;text-decoration:none;margin-top:1rem;">(559) 338-7144</a>
+      </div>
+      <div class="reveal">
+        <table class="hours-table">
+          <tbody>
+            <tr><td>Sunday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr class="today"><td>Monday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Tuesday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Wednesday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Thursday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Friday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Saturday</td><td>7:00 AM – 8:00 PM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Stat boxes -->
+    <div class="stat-boxes reveal">
+      <div class="stat-box"><div class="sb-num">4.5★</div><div class="sb-lbl">Google Rating</div></div>
+      <div class="stat-box"><div class="sb-num">7</div><div class="sb-lbl">Days Open</div></div>
+      <div class="stat-box"><div class="sb-num">13h</div><div class="sb-lbl">Daily Hours</div></div>
+      <div class="stat-box"><div class="sb-num">$0</div><div class="sb-lbl">Estimate Cost</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS — equal grid -->
+<section class="section-bg2" id="reviews">
+  <div class="container">
+    <div class="hdr-split reveal">
+      <span class="lbl">Reputation</span>
+      <div>
+        <h2>What Customers Say</h2>
+        <p>Rated 4.5 stars on Google by real customers in Fresno.</p>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="rev-card reveal">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"Brilliant work — quick, professional, and exactly what we needed. The team handled everything efficiently and left the place clean."</p>
+        <div class="rev-author">— Luis Baldez · Verified Customer</div>
+      </div>
+      <div class="rev-card reveal">
+        <div class="rev-stars">★★★★☆</div>
+        <p class="rev-text">"Great service. Showed up on time, got the job done right, and explained everything clearly. I'll definitely be calling them again."</p>
+        <div class="rev-author">— Anthony Mendoza · Fresno, CA</div>
+      </div>
+      <div class="rev-card reveal">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"Reliable, professional, and fairly priced. United Electrical handled our panel upgrade without any issues. Highly recommend."</p>
+        <div class="rev-author">— Fresno Homeowner · Google Review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Get a Free Estimate</h2>
+  <p>Call us today — open 7 days, 7 AM to 8 PM.</p>
+  <a href="tel:5593387144" class="cta-phone-dark">(559) 338-7144</a>
+  <a href="tel:5593387144" class="btn-sq-dark">Call Now — No Obligation</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">United Electrical Solutions</div>
+    <div>2960 N Miami Ave, Fresno, CA 93727</div>
+    <div>(559) 338-7144</div>
+    <div>© 2026 United Electrical Solutions</div>
+  </div>
+</footer>
+
+<script>
+  // Parallax
+  const bg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => { if(bg) bg.style.transform = `translateY(${window.scrollY * 0.4}px)`; }, { passive: true });
+
+  // Nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+
+  // Reveal
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Accent from hero
+  const img = new Image(); img.crossOrigin = 'anonymous'; img.src = 'hero.png';
+  img.onload = () => {
+    try {
+      const c = document.createElement('canvas'); c.width = 10; c.height = 10;
+      const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, 10, 10);
+      const d = ctx.getImageData(0, 0, 10, 10).data;
+      let r=0,g=0,b=0,n=0;
+      for(let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];n++;}
+      r=Math.round(r/n);g=Math.round(g/n);b=Math.round(b/n);
+      if(Math.max(r,g,b)-Math.min(r,g,b)>30) document.documentElement.style.setProperty('--accent',`rgb(${r},${g},${b})`);
+    } catch(e){}
+  };
+</script>
+</body>
+</html>

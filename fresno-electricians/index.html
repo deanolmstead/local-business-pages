@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fresno Electricians — Licensed Electrical Contractors in Fresno, CA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --accent: #d97706; --bg: #fafaf8; --bg2: #f2ede8; --text: #1a1917; --muted: #6b6560; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(250,250,248,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.07);
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.25rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #fff; transition: color 0.3s;
+    }
+    nav.scrolled .nav-logo { color: var(--text); }
+    .nav-pill {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.55rem 1.6rem; border-radius: 999px;
+      background: var(--accent); color: #fff; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-pill:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* HERO — bottom-pinned text */
+    .hero {
+      position: relative; height: 100vh; min-height: 580px; overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('hero.png'); background-size: cover; background-position: center 30%;
+      will-change: transform;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,6,4,0.88) 0%, rgba(8,6,4,0.35) 55%, transparent 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      width: 100%; padding: 0 3rem 4rem;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    }
+    .hero-text-block { max-width: 600px; }
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: clamp(3rem, 8vw, 6rem); line-height: 0.92; text-transform: uppercase;
+      color: #fff; margin-bottom: 1rem;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-sub { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.72); line-height: 1.65; }
+    .hero-cta-block { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; }
+    .btn-pill-lg {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.05rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 1rem 2.2rem; border-radius: 999px;
+      background: var(--accent); color: #fff; text-decoration: none; white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-pill-lg:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-pill-outline {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.75rem 1.8rem; border-radius: 999px;
+      border: 1.5px solid rgba(255,255,255,0.45); color: rgba(255,255,255,0.8);
+      text-decoration: none; white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-pill-outline:hover { border-color: #fff; color: #fff; }
+
+    /* TRUST STRIP */
+    .trust-strip {
+      background: var(--accent); padding: 1rem 2rem;
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    }
+    .trust-item {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #fff; display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 2rem; }
+    .section-bg2 { background: var(--bg2); }
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    /* CENTERED HEADER */
+    .hdr-center { text-align: center; margin-bottom: 3.5rem; }
+    .hdr-center .lbl {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--accent); display: block; margin-bottom: 0.6rem;
+    }
+    .hdr-center h2 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; letter-spacing: 0.02em;
+      color: var(--text); line-height: 1.05;
+    }
+    .hdr-center p { font-size: 1rem; color: var(--muted); margin-top: 0.75rem; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+
+    /* SERVICES — shadowed rounded cards */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem;
+    }
+    .svc-card {
+      background: #fff; border-radius: 14px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .svc-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.11); transform: translateY(-3px); }
+    .svc-icon {
+      width: 52px; height: 52px; background: rgba(217,119,6,0.1); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1rem;
+    }
+    .svc-name {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 0.45rem;
+    }
+    .svc-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* BIG INLINE STATS */
+    .stats-row {
+      display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+      border-top: 1px solid rgba(0,0,0,0.07); border-bottom: 1px solid rgba(0,0,0,0.07);
+      margin: 4rem 0;
+    }
+    .stat-item {
+      flex: 1; min-width: 140px;
+      padding: 2.5rem 1rem; text-align: center;
+      border-right: 1px solid rgba(0,0,0,0.07);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 3.5rem; line-height: 1; color: var(--accent);
+    }
+    .stat-lbl {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-top: 0.4rem;
+    }
+
+    /* HOURS */
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 680px) { .hours-grid { grid-template-columns: 1fr; } }
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .hours-table tr { border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table td { padding: 0.85rem 0; font-size: 0.9rem; color: var(--text); }
+    .hours-table td:first-child {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); width: 130px;
+    }
+    .today td { color: var(--accent) !important; font-weight: 600; }
+
+    /* FEATURED REVIEW */
+    .featured-review {
+      background: var(--text); border-radius: 16px;
+      padding: 3rem; margin-bottom: 1.5rem; position: relative; overflow: hidden;
+    }
+    .featured-review::before {
+      content: '"'; position: absolute; top: -0.5rem; left: 1.5rem;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 12rem; font-weight: 800;
+      line-height: 1; color: rgba(255,255,255,0.05); pointer-events: none;
+    }
+    .featured-text {
+      font-size: 1.35rem; font-weight: 300; color: rgba(255,255,255,0.9);
+      line-height: 1.65; font-style: italic; margin-bottom: 1.5rem; position: relative;
+    }
+    .featured-author {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .review-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 600px) { .review-mini-grid { grid-template-columns: 1fr; } }
+    .mini-review {
+      background: #fff; border-radius: 12px;
+      padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .mini-stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 0.6rem; }
+    .mini-text { font-size: 0.88rem; color: #3a3632; line-height: 1.65; font-style: italic; margin-bottom: 0.75rem; }
+    .mini-author {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* CTA BAND */
+    .cta-band {
+      background: var(--accent); padding: 5rem 2rem; text-align: center;
+    }
+    .cta-band h2 {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .cta-band p { color: rgba(255,255,255,0.75); margin-bottom: 2rem; }
+    .cta-phone-big {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 3rem; color: #fff; text-decoration: none; display: block; margin-bottom: 2rem;
+    }
+    .btn-pill-white {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.95rem 2.5rem; border-radius: 999px;
+      background: #fff; color: var(--accent); text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-pill-white:hover { opacity: 0.9; }
+
+    /* FOOTER */
+    footer { background: var(--text); padding: 2.5rem 2rem; }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      font-size: 0.83rem; color: rgba(255,255,255,0.38);
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 1rem; letter-spacing: 0.07em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 680px) {
+      .hero-content { padding: 0 1.5rem 3rem; flex-direction: column; align-items: flex-start; }
+      .hero-cta-block { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">Fresno Electricians</div>
+  <a href="tel:5593387144" class="nav-pill">Call Now</a>
+</nav>
+
+<!-- HERO — bottom-pinned -->
+<div class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-text-block">
+      <p class="hero-eyebrow">Licensed Electricians · Fresno, CA</p>
+      <h1 class="hero-title">Power<br/><span>Done Right.</span></h1>
+      <p class="hero-sub">Residential &amp; commercial electrical services across Fresno. Open 7 days, rated 4.7★.</p>
+    </div>
+    <div class="hero-cta-block">
+      <a href="tel:5593387144" class="btn-pill-lg">📞 (559) 338-7144</a>
+      <a href="#services" class="btn-pill-outline">See Our Services</a>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">✓ Licensed &amp; Insured</div>
+  <div class="trust-item">✓ 4.7 Star Rating</div>
+  <div class="trust-item">✓ Open 7 Days a Week</div>
+  <div class="trust-item">✓ Free Estimates</div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="hdr-center reveal">
+      <span class="lbl">What We Do</span>
+      <h2>Electrical Services</h2>
+      <p>From panel upgrades to emergency repairs — every job done safely, cleanly, and on budget.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon">⚡</div>
+        <div class="svc-name">Panel Upgrades</div>
+        <p class="svc-desc">Safely upgrade your electrical panel to handle modern loads and keep your home up to code.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🔌</div>
+        <div class="svc-name">Outlet &amp; Switch Installation</div>
+        <p class="svc-desc">New outlets, GFCI upgrades, USB outlets, and switch replacements done quickly and cleanly.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">💡</div>
+        <div class="svc-name">Lighting Installation</div>
+        <p class="svc-desc">Recessed lighting, ceiling fans, exterior lighting, and LED retrofits for every room.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🏠</div>
+        <div class="svc-name">Residential Wiring</div>
+        <p class="svc-desc">Full home rewires, new construction wiring, and additions — all to California code.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🔍</div>
+        <div class="svc-name">Electrical Inspections</div>
+        <p class="svc-desc">Thorough safety inspections to identify hazards, outdated wiring, and fire risks.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🚨</div>
+        <div class="svc-name">Emergency Repairs</div>
+        <p class="svc-desc">Electrical emergencies can't wait. We respond fast to restore power and keep your family safe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="section-bg2" id="hours">
+  <div class="container">
+    <div class="hours-grid">
+      <div class="reveal">
+        <span class="lbl" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.72rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:0.6rem;">When to Call</span>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.5vw,2.6rem);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:1rem;">Open Every Day</h2>
+        <p style="font-size:1rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;">Available 7 AM to 8 PM, seven days a week. Call anytime to schedule service or get a free estimate.</p>
+        <a href="tel:5593387144" class="btn-pill-lg" style="display:inline-block;text-decoration:none;">(559) 338-7144</a>
+      </div>
+      <div class="reveal">
+        <table class="hours-table">
+          <tbody>
+            <tr><td>Sunday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr class="today"><td>Monday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Tuesday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Wednesday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Thursday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Friday</td><td>7:00 AM – 8:00 PM</td></tr>
+            <tr><td>Saturday</td><td>7:00 AM – 8:00 PM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Big inline stats -->
+    <div class="stats-row reveal">
+      <div class="stat-item"><div class="stat-num">4.7★</div><div class="stat-lbl">Google Rating</div></div>
+      <div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">Days Open</div></div>
+      <div class="stat-item"><div class="stat-num">13h</div><div class="stat-lbl">Daily Hours</div></div>
+      <div class="stat-item"><div class="stat-num">$0</div><div class="stat-lbl">Estimate Cost</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS — featured large + two mini -->
+<section id="reviews">
+  <div class="container">
+    <div class="hdr-center reveal">
+      <span class="lbl">What People Say</span>
+      <h2>Customer Reviews</h2>
+    </div>
+    <div class="featured-review reveal">
+      <p class="featured-text">"We sent in 5 sounders in desperate need of repair. They fixed them up in less than a week! We are very impressed by this business and their hard work."</p>
+      <div class="featured-author">— Kersten Schreier · 5 Stars on Google</div>
+    </div>
+    <div class="review-mini-grid">
+      <div class="mini-review reveal">
+        <div class="mini-stars">★★★★★</div>
+        <p class="mini-text">"Professional service from start to finish. Arrived on time, got the job done right the first time."</p>
+        <div class="mini-author">— Timothy Martin · Local Guide</div>
+      </div>
+      <div class="mini-review reveal">
+        <div class="mini-stars">★★★★★</div>
+        <p class="mini-text">"Fast response, fair pricing, excellent workmanship. They clearly take pride in the quality of their work."</p>
+        <div class="mini-author">— Andy Thein</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Ready to Get Started?</h2>
+  <p>Call us for a free estimate — open 7 days a week.</p>
+  <a href="tel:5593387144" class="cta-phone-big">(559) 338-7144</a>
+  <a href="tel:5593387144" class="btn-pill-white">Call Now — It's Free</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Fresno Electricians</div>
+    <div>2001 N Van Ness Blvd, Fresno, CA 93704</div>
+    <div>(559) 338-7144</div>
+    <div>© 2026 Fresno Electricians</div>
+  </div>
+</footer>
+
+<script>
+  // Parallax
+  const bg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => { bg.style.transform = `translateY(${window.scrollY * 0.4}px)`; }, { passive: true });
+
+  // Nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+
+  // Reveal
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Accent from hero
+  const img = new Image(); img.crossOrigin = 'anonymous'; img.src = 'hero.png';
+  img.onload = () => {
+    try {
+      const c = document.createElement('canvas'); c.width = 10; c.height = 10;
+      const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, 10, 10);
+      const d = ctx.getImageData(0, 0, 10, 10).data;
+      let r=0,g=0,b=0,n=0;
+      for (let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];n++;}
+      r=Math.round(r/n);g=Math.round(g/n);b=Math.round(b/n);
+      const br=(r*299+g*587+b*114)/1000;
+      if (br>140){r=Math.round(r*0.6);g=Math.round(g*0.6);b=Math.round(b*0.6);}
+      if (Math.max(r,g,b)-Math.min(r,g,b)>30) document.documentElement.style.setProperty('--accent',`rgb(${r},${g},${b})`);
+    } catch(e){}
+  };
+</script>
+</body>
+</html>

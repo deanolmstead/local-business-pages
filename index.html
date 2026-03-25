@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dean Olmstead — Website Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0e12;
+  --bg-card: #16181e;
+  --text: #f0f0f2;
+  --text-muted: #8b8d95;
+  --accent: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.15);
+  --border: rgba(255,255,255,0.06);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Hero ── */
+.portfolio-hero {
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.portfolio-hero::before {
+  content: '';
+  position: absolute;
+  top: -40%; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(37,99,235,0.1);
+  border: 1px solid rgba(37,99,235,0.2);
+  border-radius: 4px; padding: 0.4rem 1rem;
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.5rem;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s ease infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.portfolio-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400; line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem; position: relative;
+}
+.portfolio-hero h1 span { color: var(--accent); }
+.portfolio-hero .sub {
+  font-size: 1.1rem; color: var(--text-muted);
+  max-width: 560px; margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+/* ── Stats Strip ── */
+.stats-strip {
+  display: flex; justify-content: center; gap: 3rem;
+  padding: 0 2rem 3rem; flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-item .num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem; font-weight: 400;
+  color: var(--text); line-height: 1;
+}
+.stat-item .label {
+  font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+/* ── Divider ── */
+.section-divider {
+  width: 60px; height: 2px; margin: 0 auto 3rem;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 999px;
+}
+
+/* ── Filter Bar ── */
+.filter-bar {
+  display: flex; justify-content: center; gap: 0.5rem;
+  padding: 0 2rem 2.5rem; flex-wrap: wrap;
+}
+.filter-btn {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); font-family: 'Inter', sans-serif;
+  font-size: 0.78rem; font-weight: 500; padding: 0.4rem 1rem;
+  border-radius: 4px; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent); border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── Grid ── */
+.portfolio-grid {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 2rem 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ── Card ── */
+.site-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none; color: inherit;
+  display: flex; flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.site-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(37,99,235,0.15);
+  border-color: rgba(37,99,235,0.2);
+}
+.card-thumb {
+  position: relative; width: 100%;
+  aspect-ratio: 16/9; overflow: hidden;
+}
+.card-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.site-card:hover .card-thumb img {
+  transform: scale(1.05);
+}
+.card-thumb .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7) 100%);
+  opacity: 0; transition: opacity 0.3s ease;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 1rem;
+}
+.site-card:hover .card-thumb .overlay { opacity: 1; }
+.overlay .view-btn {
+  font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: #fff; background: var(--accent);
+  padding: 0.45rem 1.2rem; border-radius: 4px;
+}
+.card-body { padding: 1.2rem 1.4rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
+.card-category {
+  font-size: 0.68rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent); margin-bottom: 0.4rem;
+}
+.card-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem; font-weight: 400;
+  line-height: 1.2; margin-bottom: 0.5rem;
+}
+.card-meta {
+  font-size: 0.82rem; color: var(--text-muted);
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-top: auto;
+}
+.card-rating {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  color: #eab308; font-weight: 600;
+}
+.card-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted); }
+
+/* ── Footer ── */
+.portfolio-footer {
+  text-align: center; padding: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem; color: var(--text-muted);
+}
+.portfolio-footer a { color: var(--accent); text-decoration: none; }
+.portfolio-footer a:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .portfolio-hero { padding: 4rem 1.5rem 3rem; }
+  .portfolio-grid { grid-template-columns: 1fr; padding: 0 1rem 3rem; }
+  .stats-strip { gap: 2rem; }
+  .stat-item .num { font-size: 1.8rem; }
+}
+@media (max-width: 480px) {
+  .portfolio-hero h1 { font-size: 2rem; }
+  .stats-strip { flex-direction: column; gap: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<section class="portfolio-hero">
+  <div class="hero-badge"><span class="dot"></span> Live Portfolio</div>
+  <h1>Dean Olmstead<br><span>Website Dashboard</span></h1>
+  <p class="sub">Custom mockup sites for local businesses.</p>
+</section>
+
+<div class="stats-strip">
+  <div class="stat-item"><div class="num">11</div><div class="label">Sites Built</div></div>
+  <div class="stat-item"><div class="num">5</div><div class="label">Categories</div></div>
+  <div class="stat-item"><div class="num">Fresno</div><div class="label">California</div></div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="electrician">Electrician</button>
+  <button class="filter-btn" data-filter="landscaping">Landscaping</button>
+  <button class="filter-btn" data-filter="handyman">Handyman</button>
+  <button class="filter-btn" data-filter="roofing">Roofing</button>
+  <button class="filter-btn" data-filter="insurance">Insurance</button>
+</div>
+
+<div class="portfolio-grid">
+
+  <a class="site-card" href="hi-tech-roofing-fresno/" data-cat="roofing">
+    <div class="card-thumb">
+      <img src="hi-tech-roofing-fresno/screenshot.jpg" alt="Hi Tech Roofing" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Roofing</div>
+      <div class="card-name">Hi Tech Roofing</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 4.5</span>
+        <span class="card-dot"></span>
+        128 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="jay-handyman-services/" data-cat="handyman">
+    <div class="card-thumb">
+      <img src="jay-handyman-services/screenshot.jpg" alt="Jay Handyman Services" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Handyman</div>
+      <div class="card-name">Jay Handyman Services</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 4.6</span>
+        <span class="card-dot"></span>
+        191 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="e-electric-fresno/" data-cat="electrician">
+    <div class="card-thumb">
+      <img src="e-electric-fresno/screenshot.jpg" alt="E. Electric" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Electrician</div>
+      <div class="card-name">E. Electric</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 5.0</span>
+        <span class="card-dot"></span>
+        47 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="central-valley-power-electric-fresno/" data-cat="electrician">
+    <div class="card-thumb">
+      <img src="central-valley-power-electric-fresno/screenshot.jpg" alt="Central Valley Power Electric" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Electrician</div>
+      <div class="card-name">Central Valley Power Electric</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 4.0</span>
+        <span class="card-dot"></span>
+        10 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="sunland-insurance-services/" data-cat="insurance">
+    <div class="card-thumb">
+      <img src="sunland-insurance-services/screenshot.jpg" alt="Sunland Insurance Services" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Insurance</div>
+      <div class="card-name">Sunland Insurance Services</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 4.0</span>
+        <span class="card-dot"></span>
+        22 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="dls-lawn-services/" data-cat="landscaping">
+    <div class="card-thumb">
+      <img src="dls-lawn-services/screenshot.jpg" alt="DLS Lawn Services" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Landscaping</div>
+      <div class="card-name">DLS Lawn Services</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 5.0</span>
+        <span class="card-dot"></span>
+        11 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="mow-time-lawn-service/" data-cat="landscaping">
+    <div class="card-thumb">
+      <img src="mow-time-lawn-service/screenshot.jpg" alt="Mow Time Lawn Service" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Landscaping</div>
+      <div class="card-name">Mow Time Lawn Service</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 5.0</span>
+        <span class="card-dot"></span>
+        2 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="mh-lawn-care/" data-cat="landscaping">
+    <div class="card-thumb">
+      <img src="mh-lawn-care/screenshot.jpg" alt="MH Lawn Care" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Landscaping</div>
+      <div class="card-name">MH Lawn Care</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 5.0</span>
+        <span class="card-dot"></span>
+        2 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="live-wire-custom-wiring/" data-cat="electrician">
+    <div class="card-thumb">
+      <img src="live-wire-custom-wiring/screenshot.jpg" alt="Live Wire Custom Wiring" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Electrician</div>
+      <div class="card-name">Live Wire Custom Wiring</div>
+      <div class="card-meta">Fresno, CA</div>
+    </div>
+  </a>
+
+  <a class="site-card" href="fresno-electricians/" data-cat="electrician">
+    <div class="card-thumb">
+      <img src="fresno-electricians/screenshot.jpg" alt="Fresno Electricians" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Electrician</div>
+      <div class="card-name">Fresno Electricians</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 4.7</span>
+        <span class="card-dot"></span>
+        6 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+  <a class="site-card" href="united-electrical-solutions-fresno/" data-cat="electrician">
+    <div class="card-thumb">
+      <img src="united-electrical-solutions-fresno/screenshot.jpg" alt="United Electrical Solutions" loading="lazy">
+      <div class="overlay"><span class="view-btn">View Site →</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category">Electrician</div>
+      <div class="card-name">United Electrical Solutions</div>
+      <div class="card-meta">
+        <span class="card-rating">★ 4.5</span>
+        <span class="card-dot"></span>
+        2 reviews
+        <span class="card-dot"></span>
+        Fresno, CA
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<footer class="portfolio-footer">
+  Built by <a href="#">Dean Olmstead</a> · Fresno, CA · 2026
+</footer>
+
+<script>
+// Category filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.filter;
+    document.querySelectorAll('.site-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

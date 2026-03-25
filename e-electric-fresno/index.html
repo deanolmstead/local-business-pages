@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E. Electric — Fresno Electrician</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --ink:#1c1612;
+      --paper:#faf7f2;
+      --paper-alt:#f0ebe1;
+      --rust:#c4611a;
+      --rust-dark:#a04d12;
+      --rust-pale:#fdf0e6;
+      --muted:#7a6f65;
+      --card-bg:#ffffff;
+      --card-border:rgba(0,0,0,.09);
+      --nav-scrolled:rgba(250,247,242,.95);
+      --nav-border:rgba(0,0,0,.07);
+      --hr-color:rgba(0,0,0,.06);
+      --footer-bg:#1c1612;
+      --footer-text:rgba(250,247,242,.5);
+    }
+    [data-theme="dark"]{
+      --ink:rgba(245,240,230,.88);
+      --paper:#100e0c;
+      --paper-alt:#181410;
+      --rust-pale:rgba(196,97,26,.12);
+      --muted:rgba(245,240,230,.42);
+      --card-bg:#1e1a16;
+      --card-border:rgba(255,255,255,.07);
+      --nav-scrolled:rgba(16,14,12,.92);
+      --nav-border:rgba(255,255,255,.06);
+      --hr-color:rgba(255,255,255,.06);
+      --footer-bg:#0a0806;
+      --footer-text:rgba(245,240,230,.38);
+    }
+    body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;transition:background .3s,color .3s}
+
+    /* ── NAV ── */
+    #nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1.5rem 4vw;
+      transition:all .3s;
+    }
+    #nav.scrolled{
+      background:var(--nav-scrolled);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--nav-border);
+      padding:.8rem 4vw;
+    }
+    .nav-brand{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800;font-size:1.6rem;letter-spacing:.05em;text-transform:uppercase;
+      color:#fff;transition:color .3s;
+    }
+    #nav.scrolled .nav-brand{color:var(--ink)}
+    .nav-right{display:flex;align-items:center;gap:2.5rem}
+    .nav-right a{
+      font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+      color:rgba(255,255,255,.75);text-decoration:none;transition:color .2s;
+    }
+    #nav.scrolled .nav-right a{color:var(--muted)}
+    .nav-right a:hover{color:var(--rust)}
+    .nav-phone{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700;font-size:1rem;letter-spacing:.06em;
+      color:#fff !important;
+      border:1.5px solid rgba(255,255,255,.5);
+      padding:.4rem 1rem;
+      transition:border-color .2s, color .2s !important;
+    }
+    #nav.scrolled .nav-phone{color:var(--ink) !important;border-color:rgba(0,0,0,.2)}
+    .nav-phone:hover{border-color:var(--rust) !important;color:var(--rust) !important}
+
+    /* ── TOGGLE ── */
+    .theme-toggle{
+      background:rgba(0,0,0,.18);border:1.5px solid rgba(255,255,255,.6);
+      color:#fff;cursor:pointer;
+      display:inline-flex;align-items:center;justify-content:center;
+      font-size:.85rem;line-height:1;
+      padding:.35rem .6rem;
+      transition:border-color .2s,color .2s,background .2s;
+      flex-shrink:0;
+    }
+    #nav.scrolled .theme-toggle{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.4);color:var(--ink)}
+    .theme-toggle:hover{border-color:var(--rust);color:var(--rust);background:var(--rust-pale)}
+    [data-theme="dark"] .theme-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);color:rgba(245,240,230,.9)}
+    #nav.scrolled [data-theme="dark"] .theme-toggle,
+    [data-theme="dark"] #nav.scrolled .theme-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:rgba(245,240,230,.9)}
+
+    /* ── HERO — diagonal gradient, text left-mid pinned ── */
+    #hero{
+      position:relative;height:100vh;min-height:640px;
+      display:flex;align-items:center;
+      overflow:hidden;
+    }
+    #hero-bg{
+      position:absolute;inset:0;
+      background:url('hero.png') center/cover no-repeat;
+      will-change:transform;
+    }
+    #hero-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(108deg,
+        rgba(20,14,8,.88) 0%,
+        rgba(20,14,8,.72) 38%,
+        rgba(20,14,8,.20) 68%,
+        rgba(20,14,8,.0) 100%
+      );
+    }
+    .hero-body{
+      position:relative;z-index:2;
+      padding:0 4vw;
+      max-width:620px;
+    }
+    .hero-eyebrow{
+      display:flex;align-items:center;gap:.75rem;
+      margin-bottom:1.25rem;
+    }
+    .hero-eyebrow-line{width:36px;height:2px;background:var(--rust)}
+    .hero-eyebrow span{
+      font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+      color:rgba(255,255,255,.6);
+    }
+    .hero-name{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800;text-transform:uppercase;
+      font-size:clamp(4rem,9vw,8rem);
+      line-height:.92;letter-spacing:-.01em;
+      color:#fff;
+      margin-bottom:.6rem;
+    }
+    .hero-name em{color:var(--rust);font-style:normal}
+    .hero-tagline{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:300;font-style:italic;
+      font-size:clamp(1.1rem,2.2vw,1.5rem);
+      color:rgba(255,255,255,.65);
+      letter-spacing:.04em;
+      margin-bottom:1.75rem;
+    }
+    .hero-meta{
+      display:flex;align-items:center;gap:1.25rem;
+      margin-bottom:2rem;flex-wrap:wrap;
+    }
+    .hero-stars{color:#f59e0b;font-size:1rem;letter-spacing:.05em}
+    .hero-meta-txt{font-size:.82rem;color:rgba(255,255,255,.55)}
+    .hero-cta{
+      display:inline-block;
+      background:var(--rust);
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;
+      color:#fff;text-decoration:none;
+      padding:.75rem 2.25rem;
+      transition:background .2s;
+    }
+    .hero-cta:hover{background:var(--rust-dark)}
+    .hero-cta-ghost{
+      display:inline-block;
+      background:transparent;
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:600;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;
+      color:rgba(255,255,255,.75);text-decoration:none;
+      padding:.75rem 2.25rem;
+      border:1.5px solid rgba(255,255,255,.35);
+      transition:border-color .2s;
+      margin-left:.75rem;
+    }
+    .hero-cta-ghost:hover{border-color:rgba(255,255,255,.8)}
+
+    /* ── ABOUT — full-bleed two-col, no numbered section header ── */
+    #about{
+      background:var(--paper);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      min-height:480px;
+    }
+    .about-img-col{overflow:hidden;position:relative}
+    .about-img-col img{
+      width:100%;height:100%;object-fit:cover;display:block;
+      transition:transform .6s ease;
+    }
+    .about-img-col:hover img{transform:scale(1.03)}
+    .about-text-col{
+      padding:5rem 4vw 5rem 4rem;
+      display:flex;flex-direction:column;justify-content:center;
+    }
+    .lede{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+      font-size:.72rem;color:var(--rust);margin-bottom:.9rem;
+    }
+    .about-headline{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800;text-transform:uppercase;
+      font-size:clamp(2rem,3.5vw,3rem);
+      line-height:1.0;letter-spacing:-.01em;
+      color:var(--ink);margin-bottom:1.25rem;
+    }
+    .about-text-col p{font-size:.95rem;color:#4a4540;line-height:1.78;margin-bottom:1rem}
+    .facts{display:flex;gap:2.5rem;margin-top:1.75rem;flex-wrap:wrap}
+    .fact-num{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800;font-size:2.8rem;line-height:1;color:var(--rust);
+    }
+    .fact-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem}
+
+    /* ── SHARED SECTION ── */
+    .section-outer{padding:5.5rem 4vw}
+    .section-outer.alt{background:var(--paper-alt)}
+    .section-header{margin-bottom:3rem}
+    .section-num{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800;font-size:5rem;line-height:1;
+      color:rgba(0,0,0,.05);letter-spacing:-.02em;
+      margin-bottom:-.5rem;user-select:none;
+    }
+    .section-title{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800;text-transform:uppercase;
+      font-size:clamp(1.8rem,3vw,2.6rem);
+      letter-spacing:-.01em;color:var(--ink);line-height:1.05;
+    }
+    .section-sub{font-size:.9rem;color:var(--muted);line-height:1.7;max-width:520px;margin-top:.6rem}
+
+    /* ── SERVICES — bordered-sharp left-accent-bar ── */
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1px;
+      background:rgba(0,0,0,.08);
+      border:1px solid rgba(0,0,0,.08);
+    }
+    .svc{
+      background:var(--paper-alt);
+      padding:1.75rem 1.5rem;
+      border:1px solid var(--card-border);
+      border-top:3px solid var(--rust);
+      transition:background .2s;
+    }
+    .svc:hover{background:var(--card-bg)}
+    .svc-ico{font-size:1.5rem;margin-bottom:.75rem}
+    .svc h3{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700;text-transform:uppercase;
+      font-size:1.05rem;letter-spacing:.04em;
+      color:var(--ink);margin-bottom:.4rem;
+    }
+    .svc p{font-size:.83rem;color:var(--muted);line-height:1.6}
+
+    /* ── REVIEWS — horizontal draggable strip ── */
+    .reviews-track{
+      display:flex;gap:1.25rem;
+      overflow-x:auto;padding-bottom:.5rem;
+      scrollbar-width:none;-ms-overflow-style:none;
+      cursor:grab;
+    }
+    .reviews-track::-webkit-scrollbar{display:none}
+    .rcard{
+      flex:0 0 300px;
+      border:1px solid var(--card-border);
+      border-top:3px solid var(--rust);
+      background:var(--card-bg);padding:1.5rem;
+    }
+    .rcard-quote{
+      font-size:2.5rem;line-height:.7;
+      font-family:'Barlow Condensed',sans-serif;font-weight:800;
+      color:var(--rust);opacity:.25;margin-bottom:.25rem;
+    }
+    .rcard-stars{color:#f59e0b;font-size:.8rem;margin-bottom:.4rem}
+    .rcard-text{font-size:.875rem;color:#3a3530;line-height:1.65;font-style:italic;margin-bottom:1rem}
+    .rcard-name{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.08em;color:var(--rust);
+    }
+    .rcard-source{font-size:.72rem;color:#b0a89e;margin-top:.15rem}
+
+    /* ── HOURS ── */
+    .hours-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:start}
+    .h-row{
+      display:flex;justify-content:space-between;align-items:baseline;
+      padding:.7rem 0;border-bottom:1px solid var(--hr-color);
+    }
+    .h-row:last-child{border:none}
+    .h-day{font-size:.9rem;font-weight:500;color:var(--ink)}
+    .h-time{font-size:.85rem;color:var(--muted)}
+    .h-time.closed{color:rgba(0,0,0,.2)}
+    .contact-stack{display:flex;flex-direction:column;gap:1.5rem}
+    .ci{display:flex;align-items:flex-start;gap:1rem}
+    .ci-ico{
+      width:38px;height:38px;flex-shrink:0;
+      background:var(--rust-pale);border:1px solid rgba(196,97,26,.15);
+      display:flex;align-items:center;justify-content:center;color:var(--rust);
+    }
+    .ci-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
+    .ci-val{font-size:.92rem;font-weight:500;color:var(--ink)}
+    .ci-val a{color:inherit;text-decoration:none}
+    .ci-val a:hover{color:var(--rust)}
+    .cta-inline{
+      display:inline-block;margin-top:1rem;
+      background:var(--rust);
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700;font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;
+      color:#fff;text-decoration:none;padding:.7rem 2rem;transition:background .2s;
+    }
+    .cta-inline:hover{background:var(--rust-dark)}
+
+    /* ── FOOTER ── */
+    footer{background:var(--footer-bg);color:var(--footer-text);padding:3.5rem 4vw 2rem;transition:background .3s}
+    .foot-top{
+      display:flex;justify-content:space-between;align-items:flex-start;
+      gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;
+    }
+    .foot-brand{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800;text-transform:uppercase;
+      font-size:1.75rem;letter-spacing:.05em;
+      color:rgba(250,247,242,.9);margin-bottom:.25rem;
+    }
+    .foot-sub{font-size:.75rem;color:rgba(250,247,242,.3)}
+    .foot-nav{display:flex;flex-direction:column;gap:.5rem}
+    .foot-nav a{font-size:.82rem;color:rgba(250,247,242,.4);text-decoration:none;transition:color .2s}
+    .foot-nav a:hover{color:var(--rust)}
+    .foot-addr{font-size:.82rem;line-height:1.7;color:rgba(250,247,242,.35)}
+    .foot-addr a{color:inherit;text-decoration:none}
+    .foot-addr a:hover{color:var(--rust)}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;font-size:.7rem;color:rgba(250,247,242,.2)}
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      #about{grid-template-columns:1fr}
+      .about-img-col{height:50vw}
+      .about-text-col{padding:3rem 4vw}
+      .hours-layout{grid-template-columns:1fr;gap:2.5rem}
+    }
+    @media(max-width:640px){
+      #nav{padding:1rem 4vw}
+      .nav-right a:not(.nav-phone){display:none}
+      .hero-name{font-size:clamp(3rem,14vw,5rem)}
+      .section-outer{padding:3.5rem 4vw}
+      .services-grid{grid-template-columns:1fr}
+    }
+
+    /* ── MICRO-INTERACTIONS ── */
+    /* Scroll progress bar */
+    #prog{position:fixed;top:0;left:0;height:3px;background:var(--rust);width:0%;z-index:300;pointer-events:none;transition:width .08s linear}
+    /* Nav link underline slide-in */
+    .nav-right a:not(.nav-phone){position:relative}
+    .nav-right a:not(.nav-phone)::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1.5px;background:var(--rust);transition:width .22s ease}
+    .nav-right a:not(.nav-phone):hover::after{width:100%}
+    /* Service card icon bounce on hover */
+    .svc-ico{display:inline-block;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+    .svc:hover .svc-ico{transform:scale(1.3) rotate(-8deg)}
+    /* Review card lift */
+    .rcard{transition:transform .22s ease,box-shadow .22s ease}
+    .rcard:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
+    /* Button ripple */
+    .hero-cta,.cta-inline{position:relative;overflow:hidden}
+    .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.28);transform:scale(0);animation:ripple .55s linear;pointer-events:none}
+    @keyframes ripple{to{transform:scale(4);opacity:0}}
+    /* Hero CTA arrow nudge */
+    .cta-arrow{display:inline-block;margin-left:.4rem;transition:transform .2s ease}
+    .hero-cta:hover .cta-arrow{transform:translateX(5px)}
+    /* Phone icon ring pulse */
+    @keyframes ph-ring{0%{box-shadow:0 0 0 0 rgba(196,97,26,.5)}70%{box-shadow:0 0 0 10px rgba(196,97,26,0)}100%{box-shadow:0 0 0 0 rgba(196,97,26,0)}}
+    .ci-ico.ringing{animation:ph-ring 2.2s ease-out infinite}
+    /* Theme toggle — brief spin on click */
+    .theme-toggle svg{transition:transform .32s ease}
+    .theme-toggle.spinning svg{transform:rotate(180deg) scale(.72)}
+    /* Today's hours row highlight */
+    .h-row.today{background:rgba(196,97,26,.07);padding-left:.5rem;padding-right:.5rem;margin:0 -.5rem;border-radius:2px}
+    .h-row.today .h-day{color:var(--rust);font-weight:700}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">E.&nbsp;Electric</div>
+  <div class="nav-right">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#hours">Hours</a>
+    <a href="tel:5594309793" class="nav-phone">☎ (559) 430-9793</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div id="hero-bg"></div>
+  <div id="hero-overlay"></div>
+  <div class="hero-body">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span>Licensed Electrician · Fresno, CA · Since 2018</span>
+    </div>
+    <h1 class="hero-name">E.<br><em>Electric</em></h1>
+    <p class="hero-tagline">Residential &amp; Commercial Electrical, Done Right.</p>
+    <div class="hero-meta">
+      <span class="hero-stars">★★★★★</span>
+      <span class="hero-meta-txt">5.0 · 47 Google reviews</span>
+      <span class="hero-meta-txt">·</span>
+      <span class="hero-meta-txt">Top 8% CA contractor</span>
+    </div>
+    <a href="tel:5594309793" class="hero-cta">Call Now <span class="cta-arrow">→</span></a>
+    <a href="#services" class="hero-cta-ghost">Our Services</a>
+  </div>
+</section>
+
+<!-- ABOUT — full-bleed two-col, image left -->
+<section id="about">
+  <div class="about-img-col">
+    <img src="hero.png" alt="E. Electric — Fresno electrician"/>
+  </div>
+  <div class="about-text-col">
+    <div class="lede reveal">About E. Electric</div>
+    <h2 class="about-headline reveal rd1">Family-Owned.<br>Fresno-Built.</h2>
+    <p class="reveal rd2">Founded by Roberto Enciso in 2018, E. Electric was built on one principle: do quality work, show up when you say you will, and charge a fair price. Eight years in, that hasn't changed.</p>
+    <p class="reveal rd2">From residential panel upgrades to 480V 3-phase commercial installs, our licensed crew handles it all — with the same care for a single outlet or a full plant electrical overhaul.</p>
+    <div class="facts reveal rd3">
+      <div><div class="fact-num">5.0</div><div class="fact-label">Star Rating</div></div>
+      <div><div class="fact-num" data-target="47">47</div><div class="fact-label">Reviews</div></div>
+      <div><div class="fact-num">24/7</div><div class="fact-label">Emergency</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section-outer alt">
+  <div class="section-header">
+    <div class="section-num reveal">01</div>
+    <h2 class="section-title reveal rd1">Services</h2>
+    <p class="section-sub reveal rd2">Residential, commercial &amp; industrial electrical across Fresno and the Central Valley.</p>
+  </div>
+  <div class="services-grid reveal rd1">
+    <div class="svc"><div class="svc-ico">⚡</div><h3>Panel Upgrades</h3><p>Full service panel replacements and upgrades. We pull permits, schedule inspections, do the work right.</p></div>
+    <div class="svc"><div class="svc-ico">🏠</div><h3>Residential Wiring</h3><p>New construction, remodels, outlets, switches — 120V and 240V residential work done clean the first time.</p></div>
+    <div class="svc"><div class="svc-ico">🏭</div><h3>Commercial &amp; Industrial</h3><p>Motor controls, 480V 3-phase, power distribution, and plant maintenance for commercial clients.</p></div>
+    <div class="svc"><div class="svc-ico">💡</div><h3>Lighting</h3><p>Interior and exterior lighting, LED retrofits, and custom commercial lighting installations.</p></div>
+    <div class="svc"><div class="svc-ico">🔧</div><h3>Troubleshooting</h3><p>Fast diagnosis of tripping breakers, shorts, failed equipment, and mystery electrical faults.</p></div>
+    <div class="svc"><div class="svc-ico">🚨</div><h3>Emergency Service</h3><p>Electrical emergencies don't wait. We're available 24 hours a day, 7 days a week.</p></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="section-outer">
+  <div class="section-header">
+    <div class="section-num reveal">02</div>
+    <h2 class="section-title reveal rd1">What Customers Say</h2>
+    <p class="section-sub reveal rd2">47 five-star reviews. Drag to read more.</p>
+  </div>
+  <div class="reviews-track reveal rd2">
+    <div class="rcard"><div class="rcard-quote">"</div><div class="rcard-stars">★★★★★</div><p class="rcard-text">When we told Robert our situation, him and his crew went above and beyond to make it happen. Couldn't ask for a better experience.</p><div class="rcard-name">Maria L.</div><div class="rcard-source">Google Review</div></div>
+    <div class="rcard"><div class="rcard-quote">"</div><div class="rcard-stars">★★★★★</div><p class="rcard-text">Quote was reasonable and he emailed it soon after with no pressure. Very professional from start to finish. Will use again.</p><div class="rcard-name">James T.</div><div class="rcard-source">Google Review</div></div>
+    <div class="rcard"><div class="rcard-quote">"</div><div class="rcard-stars">★★★★★</div><p class="rcard-text">Will definitely be recommending E. Electric to family and friends. Showed up on time, finished on schedule, cleaned up after.</p><div class="rcard-name">Patricia M.</div><div class="rcard-source">Google Review</div></div>
+    <div class="rcard"><div class="rcard-quote">"</div><div class="rcard-stars">★★★★★</div><p class="rcard-text">Roberto and his team handled our 3-phase commercial upgrade without any issues. Top 8% contractor — they've earned every bit of it.</p><div class="rcard-name">David R.</div><div class="rcard-source">Google Review</div></div>
+    <div class="rcard"><div class="rcard-quote">"</div><div class="rcard-stars">★★★★★</div><p class="rcard-text">Came out for an emergency at 7pm, diagnosed it fast, fixed it in under two hours. Fair price, great attitude. Highly recommend.</p><div class="rcard-name">Tony V.</div><div class="rcard-source">Google Review</div></div>
+  </div>
+</section>
+
+<!-- HOURS & CONTACT -->
+<section id="hours" class="section-outer alt">
+  <div class="section-header">
+    <div class="section-num reveal">03</div>
+    <h2 class="section-title reveal rd1">Hours &amp; Contact</h2>
+  </div>
+  <div class="hours-layout">
+    <div class="reveal rd1">
+      <div class="h-row"><span class="h-day">Monday</span><span class="h-time">6:00 AM – 5:00 PM</span></div>
+      <div class="h-row"><span class="h-day">Tuesday</span><span class="h-time">6:00 AM – 5:00 PM</span></div>
+      <div class="h-row"><span class="h-day">Wednesday</span><span class="h-time">6:00 AM – 5:00 PM</span></div>
+      <div class="h-row"><span class="h-day">Thursday</span><span class="h-time">6:00 AM – 5:00 PM</span></div>
+      <div class="h-row"><span class="h-day">Friday</span><span class="h-time">6:00 AM – 5:00 PM</span></div>
+      <div class="h-row"><span class="h-day">Saturday</span><span class="h-time">7:00 AM – 12:00 PM</span></div>
+      <div class="h-row"><span class="h-day">Sunday</span><span class="h-time closed">Closed</span></div>
+      <p style="font-size:.75rem;color:var(--muted);margin-top:.75rem">24/7 emergency line always available.</p>
+    </div>
+    <div class="contact-stack reveal rd2">
+      <div class="ci">
+        <div class="ci-ico"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+        <div><div class="ci-label">Phone</div><div class="ci-val"><a href="tel:5594309793">(559) 430-9793</a></div></div>
+      </div>
+      <div class="ci">
+        <div class="ci-ico"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg></div>
+        <div><div class="ci-label">Address</div><div class="ci-val">565 S Apricot Ave, Fresno CA 93727</div></div>
+      </div>
+      <div class="ci">
+        <div class="ci-ico"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div><div class="ci-label">License</div><div class="ci-val">CA Licensed &amp; Insured · BuildZoom 105</div></div>
+      </div>
+      <a href="tel:5594309793" class="cta-inline">Get a Free Estimate</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand">E. Electric</div>
+      <div class="foot-sub">Fresno's trusted licensed electrician since 2018</div>
+    </div>
+    <nav class="foot-nav">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#hours">Hours</a>
+    </nav>
+    <div class="foot-addr">565 S Apricot Ave<br>Fresno, CA 93727<br><a href="tel:5594309793">(559) 430-9793</a></div>
+  </div>
+  <div class="foot-bottom">&copy; 2026 E. Electric · CA Licensed Electrician · Fresno, CA</div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+
+  // Parallax
+  const bg=document.getElementById('hero-bg');
+  window.addEventListener('scroll',()=>bg.style.transform=`translateY(${scrollY*.4}px)`,{passive:true});
+
+  // Scroll reveal
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Drag-scroll reviews
+  const track=document.querySelector('.reviews-track');
+  let drag=false,sx=0,sl=0;
+  track.addEventListener('mousedown',e=>{drag=true;sx=e.pageX-track.offsetLeft;sl=track.scrollLeft});
+  track.addEventListener('mouseleave',()=>drag=false);
+  track.addEventListener('mouseup',()=>drag=false);
+  track.addEventListener('mousemove',e=>{if(!drag)return;e.preventDefault();track.scrollLeft=sl-(e.pageX-track.offsetLeft-sx)});
+
+  // Dark/light toggle
+  const SUN_SVG=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const MOON_SVG=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  const btn=document.getElementById('theme-toggle');
+  const apply=dark=>{
+    document.documentElement.setAttribute('data-theme',dark?'dark':'');
+    btn.innerHTML=dark?MOON_SVG:SUN_SVG;
+    btn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+    try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){}
+  };
+  // Restore saved preference, fallback to light
+  const saved=()=>{try{return localStorage.getItem('theme')}catch(e){return null}};
+  apply(saved()==='dark');
+  btn.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')!=='dark'));
+
+  // ── MICRO-INTERACTIONS ──
+
+  // Scroll progress bar
+  const _pb=document.createElement('div');_pb.id='prog';document.body.prepend(_pb);
+  window.addEventListener('scroll',()=>_pb.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%',{passive:true});
+
+  // Animated number counters
+  const runCount=el=>{
+    const target=+el.dataset.target,dur=1100,t0=performance.now();
+    const tick=t=>{const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target);if(p<1)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);
+  };
+  const cio=new IntersectionObserver((ee,obs)=>ee.forEach(e=>{if(e.isIntersecting){runCount(e.target);obs.unobserve(e.target)}}),{threshold:.6});
+  document.querySelectorAll('[data-target]').forEach(el=>cio.observe(el));
+
+  // Button ripple
+  document.querySelectorAll('.hero-cta,.cta-inline').forEach(b=>b.addEventListener('click',e=>{
+    const r=document.createElement('span');r.className='ripple';
+    const rc=b.getBoundingClientRect(),sz=Math.max(rc.width,rc.height);
+    r.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-rc.left-sz/2}px;top:${e.clientY-rc.top-sz/2}px`;
+    b.appendChild(r);setTimeout(()=>r.remove(),600);
+  }));
+
+  // Phone icon pulse
+  document.querySelector('.ci a[href^="tel"]')?.closest('.ci')?.querySelector('.ci-ico')?.classList.add('ringing');
+
+  // Today's hours highlight
+  const _days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  document.querySelectorAll('.h-row').forEach(r=>{if(r.querySelector('.h-day')?.textContent.trim()===_days[new Date().getDay()])r.classList.add('today')});
+
+  // Toggle spin feedback
+  btn.addEventListener('click',()=>{btn.classList.add('spinning');setTimeout(()=>btn.classList.remove('spinning'),350)});
+</script>
+</body>
+</html>

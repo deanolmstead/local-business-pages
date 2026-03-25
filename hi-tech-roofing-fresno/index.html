@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-palette="cool-white"
+  data-buttons="pill"
+  data-nav="logo-left"
+  data-hero="diagonal-gradient"
+  data-stats="accent-strip"
+  data-cards="icon-top-centered"
+  data-reviews="equal-grid"
+  data-headers="centered-eyebrow"
+  data-footer="centered-stacked"
+  data-era="warm-editorial"
+  data-spacing="generous"
+  data-shadows="soft"
+  data-typography="editorial"
+  data-animation="smooth"
+  data-order="standard"
+  data-decor="none"
+  data-card-style="elevated"
+  style="--accent:#0d9488; --accent-rgb:13,148,136; --accent-dark:#0a7a70; --font-display:'Playfair Display', serif"
+>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Tech Roofing Services Co. — Fresno, CA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Palette: Cool White ── */
+:root {
+  --bg: #f8f9fa; --bg-alt: #eef0f2; --text: #111827;
+  --text-muted: #4b5563; --card-bg: #ffffff; --card-border: #e5e7eb;
+  --accent: #0d9488; --accent-rgb: 13,148,136; --accent-dark: #0a7a70;
+  --nav-scrolled-bg: rgba(248,249,250,0.94);
+  --footer-bg: #111827; --footer-text: rgba(248,249,250,0.72);
+  --radius: 999px;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --section-pad: 8rem;
+  --card-shadow: 0 2px 12px rgba(0,0,0,.06);
+  --card-hover-shadow: 0 12px 30px rgba(0,0,0,.1);
+  --card-hover-lift: translateY(-5px);
+  --hero-size: clamp(3.5rem, 9vw, 6rem);
+  --section-title-size: clamp(2.5rem, 6vw, 4rem);
+  --body-size: 17px;
+  --anim-ease: ease;
+  --anim-dur: 350ms;
+  --border-width: 1px;
+}
+[data-theme="dark"] {
+  --bg: #0f1117; --bg-alt: #161924;
+  --text: rgba(245,240,230,0.88); --text-muted: rgba(245,240,230,0.52);
+  --card-bg: #1a1d28; --card-border: #262a38;
+  --nav-scrolled-bg: rgba(15,17,23,0.94);
+  --footer-bg: #080a10; --footer-text: rgba(245,240,230,0.52);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--font-body); font-size: var(--body-size); line-height: 1.6;
+  transition: background var(--anim-dur) var(--anim-ease), color var(--anim-dur) var(--anim-ease);
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ── Scroll Progress ── */
+#prog {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--accent); width: 0%;
+  z-index: 300; pointer-events: none;
+  transition: width 0.08s linear;
+  border-radius: 0 999px 999px 0;
+}
+
+/* ── Nav ── */
+#nav {
+  position: fixed; top: 3px; left: 0; right: 0;
+  z-index: 200; padding: 0 2rem; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+#nav::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 220px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.82) 0%, transparent 100%);
+  pointer-events: none; transition: opacity 0.3s;
+}
+#nav.scrolled::before { opacity: 0; }
+#nav.scrolled {
+  background: var(--nav-scrolled-bg);
+  box-shadow: 0 1px 0 rgba(0,0,0,.08);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+  letter-spacing: -0.01em; color: rgba(255,255,255,0.92);
+  position: relative; z-index: 1; transition: color 0.3s; line-height: 1;
+}
+.nav-logo span { color: var(--accent); }
+#nav.scrolled .nav-logo { color: var(--text); }
+.nav-right {
+  display: flex; align-items: center; gap: 1.2rem;
+  position: relative; z-index: 1;
+}
+.nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
+.nav-link {
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255,255,255,0.72); position: relative; transition: color 0.2s;
+}
+.nav-link::after {
+  content: ''; position: absolute; left: 50%; bottom: -3px;
+  width: 0; height: 2px; background: var(--accent);
+  transition: width 0.22s ease; transform: translateX(-50%); border-radius: 999px;
+}
+.nav-link:hover::after { width: 100%; }
+#nav.scrolled .nav-link { color: var(--text-muted); }
+#nav.scrolled .nav-link:hover { color: var(--text); }
+.nav-phone {
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+  color: rgba(255,255,255,0.92);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  padding: 0.35rem 0.9rem; border-radius: var(--radius);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.nav-phone:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+#nav.scrolled .nav-phone { color: var(--text); border-color: rgba(0,0,0,0.15); }
+#nav.scrolled .nav-phone:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: rgba(0,0,0,0.15); color: rgba(255,255,255,0.85);
+  cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+#nav.scrolled .theme-toggle {
+  background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.35); color: var(--text-muted);
+}
+.theme-toggle:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.theme-toggle svg { transition: transform 0.35s ease; }
+.theme-toggle.spinning svg { transform: rotate(180deg) scale(0.72); }
+
+/* ── Hero: Diagonal gradient ── */
+#hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; align-items: center; justify-content: flex-start;
+  overflow: hidden; padding-left: 5vw;
+}
+.hero-bg {
+  position: absolute;
+  top: -20%; left: 0; right: 0; bottom: 0;
+  height: 140%;
+  background: url('hero.png') center 30% / cover no-repeat;
+  will-change: transform;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.15) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: left;
+  padding: 0 1.5rem; max-width: 600px;
+  margin-top: 68px;
+}
+.hero-eyebrow {
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.2rem;
+  font-style: italic;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--hero-size); font-weight: 900;
+  line-height: 1.05; color: #fff; letter-spacing: -0.02em;
+  text-transform: none; margin-bottom: 1.4rem;
+}
+.hero-title span { color: var(--accent); }
+.hero-sub {
+  font-size: 1.15rem; color: rgba(255,255,255,0.78);
+  margin-bottom: 2.5rem; font-weight: 300; max-width: 480px; line-height: 1.7;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 0;
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.02em; text-transform: none;
+  padding: 0.9rem 2.2rem; border-radius: var(--radius);
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: transform var(--anim-dur) var(--anim-ease), box-shadow var(--anim-dur) var(--anim-ease);
+}
+.hero-cta:hover { transform: translateY(-2px); }
+.hero-cta-primary {
+  background: var(--accent); color: #fff;
+  box-shadow: 0 4px 20px rgba(var(--accent-rgb),0.4);
+}
+.hero-cta-primary:hover { box-shadow: 0 8px 28px rgba(var(--accent-rgb),0.5); }
+.hero-cta-secondary {
+  background: transparent; border: 2px solid rgba(255,255,255,0.5); color: #fff;
+}
+.hero-cta-secondary:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+.cta-arrow { display: inline-block; margin-left: 0.45rem; transition: transform 0.2s ease; }
+.hero-cta:hover .cta-arrow { transform: translateX(5px); }
+.ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.28);
+  transform: scale(0); animation: ripple-anim 0.55s linear;
+  pointer-events: none;
+}
+@keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+
+/* ── Section Helpers ── */
+.section-inner { max-width: 960px; margin: 0 auto; }
+.section-label {
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.6rem;
+  font-style: italic; text-align: center;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--section-title-size); font-weight: 800;
+  text-transform: none; color: var(--text);
+  margin-bottom: 3.5rem; line-height: 1.1; letter-spacing: -0.01em;
+  text-align: center;
+}
+
+/* ── Services: Elevated cards ── */
+#services { padding: var(--section-pad) 2rem; background: var(--bg); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.6rem;
+}
+.scard {
+  background: var(--card-bg);
+  border: none; border-radius: 12px;
+  padding: 2.2rem 1.8rem; text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 6px 16px rgba(0,0,0,.06), 0 12px 28px rgba(0,0,0,.04);
+  transition: transform var(--anim-dur) var(--anim-ease), box-shadow var(--anim-dur) var(--anim-ease);
+}
+.scard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 2px 6px rgba(0,0,0,.06), 0 12px 28px rgba(0,0,0,.1), 0 20px 44px rgba(0,0,0,.06);
+}
+.svc-ico {
+  display: flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(var(--accent-rgb),0.1); margin: 0 auto 1.4rem;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+}
+.svc-ico svg { width: 26px; height: 26px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.scard:hover .svc-ico { transform: scale(1.15); }
+.svc-title {
+  font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
+  letter-spacing: -0.01em; text-transform: none;
+  color: var(--text); margin-bottom: 0.6rem;
+}
+.svc-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ── About: Accent strip stats ── */
+#about { padding: var(--section-pad) 2rem; background: var(--bg-alt); }
+.about-stats-row {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 0; margin-bottom: 4rem;
+  background: var(--accent); padding: 2.8rem 2rem; border-radius: 12px;
+}
+.stat-box {
+  text-align: center; padding: 1rem;
+  background: transparent; border: none;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 4.5rem); font-weight: 900;
+  color: #fff; line-height: 1; letter-spacing: -0.02em;
+}
+.stat-suf { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: #fff; }
+.stat-label {
+  font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.75);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.4rem;
+}
+.about-body { max-width: 720px; }
+.about-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800;
+  text-transform: none; color: var(--text);
+  margin-bottom: 1.4rem; line-height: 1.1; letter-spacing: -0.01em;
+}
+.about-text {
+  font-size: 1.05rem; color: var(--text-muted);
+  line-height: 1.85; margin-bottom: 1rem;
+}
+
+/* ── Reviews: Elevated cards ── */
+#reviews { padding: var(--section-pad) 2rem; background: var(--bg); }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+  gap: 1.6rem; max-width: 960px; margin: 0 auto;
+  align-items: stretch;
+}
+.pull-quote-wrap {
+  max-width: 860px; margin: 0 auto 3.5rem;
+  text-align: center;
+}
+.pull-quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 600;
+  line-height: 1.35; color: var(--text); margin-bottom: 1.5rem;
+  font-style: italic;
+}
+.pull-quote-author {
+  font-size: 0.9rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+}
+.rcard {
+  background: var(--card-bg);
+  border: none; border-radius: 12px;
+  padding: 1.8rem;
+  display: flex; flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 6px 16px rgba(0,0,0,.06), 0 12px 28px rgba(0,0,0,.04);
+  transition: transform var(--anim-dur) var(--anim-ease), box-shadow var(--anim-dur) var(--anim-ease);
+}
+.rcard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 2px 6px rgba(0,0,0,.06), 0 12px 28px rgba(0,0,0,.1), 0 20px 44px rgba(0,0,0,.06);
+}
+.rcard-stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.7rem; }
+.rcard-text {
+  font-size: 0.92rem; color: var(--text-muted); line-height: 1.65;
+  margin-bottom: 1.2rem; flex: 1;
+}
+.rcard-author { font-weight: 600; font-size: 0.85rem; color: var(--text); }
+.rcard-time { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ── Contact / Hours ── */
+#contact { padding: var(--section-pad) 2rem; background: var(--bg-alt); }
+.contact-grid {
+  max-width: 960px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+}
+.contact-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem,4vw,3rem); font-weight: 800;
+  text-transform: none; color: var(--text);
+  margin-bottom: 2rem; line-height: 1.1;
+}
+.contact-row { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+.icon-el {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(var(--accent-rgb),0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.2s;
+}
+.icon-el svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes ph-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(var(--accent-rgb),0); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),0); }
+}
+.icon-el.ringing { animation: ph-ring 2.2s ease-out infinite; }
+.contact-detail-label {
+  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 0.2rem;
+}
+.contact-detail-val { font-size: 1rem; color: var(--text); font-weight: 500; }
+.contact-detail-val a { color: var(--accent); }
+.hours-table { width: 100%; border-collapse: collapse; }
+.hours-row td {
+  padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--card-border);
+  font-size: 0.9rem; vertical-align: middle;
+}
+.hours-row td:first-child { color: var(--text-muted); }
+.hours-row td:last-child { text-align: right; font-weight: 500; }
+.hours-row.today { background: rgba(var(--accent-rgb),.07); }
+.hours-row.today .day-label { color: var(--accent); font-weight: 700; }
+
+/* ── CTA Banner ── */
+#cta-banner { padding: 6rem 2rem; background: var(--accent); text-align: center; }
+.cta-banner-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900;
+  text-transform: none; color: #fff; margin-bottom: 0.8rem; line-height: 1.1;
+}
+.cta-banner-sub { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 2.2rem; }
+.cta-banner-btn {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+  letter-spacing: 0.02em; text-transform: none;
+  padding: 1rem 2.5rem; border-radius: var(--radius);
+  background: #fff; color: var(--accent);
+  position: relative; overflow: hidden;
+  transition: transform var(--anim-dur) var(--anim-ease), box-shadow var(--anim-dur) var(--anim-ease);
+}
+.cta-banner-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+.cta-banner-btn:hover .cta-arrow { transform: translateX(5px); }
+
+/* ── Footer: Centered stacked ── */
+#footer {
+  background: var(--footer-bg); padding: 3rem 2rem;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.8rem; text-align: center;
+}
+.footer-brand {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+  letter-spacing: -0.01em; color: rgba(255,255,255,0.7);
+}
+.footer-copy { font-size: 0.78rem; color: var(--footer-text); }
+
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.55s var(--anim-ease), transform 0.55s var(--anim-ease);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .about-stats-row { grid-template-columns: 1fr 1fr; }
+  .about-stats-row .stat-box:last-child { grid-column: 1/-1; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-content { max-width: 90vw; }
+  .hero-overlay { background: rgba(0,0,0,0.7) !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Hi Tech <span>Roofing</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#reviews" class="nav-link">Reviews</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode"></button>
+    <a href="tel:5592700917" class="nav-phone">(559) 270-0917</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fresno's Trusted Roofing Contractor</p>
+    <h1 class="hero-title">The Roof Over<br>Your <span>Family</span></h1>
+    <p class="hero-sub">Residential and commercial roofing built to last — from complete tear-offs to emergency leak repair, Hi Tech Roofing has protected Fresno homes with honest pricing and expert craft.</p>
+    <div class="hero-ctas">
+      <a href="tel:5592700917" class="hero-cta hero-cta-primary">
+        Get a Free Quote <span class="cta-arrow">&rarr;</span>
+      </a>
+      <a href="#services" class="hero-cta hero-cta-secondary">
+        Our Services <span class="cta-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <p class="section-label reveal">What We Do</p>
+    <h2 class="section-title reveal">Roofing Services Built<br>on Experience</h2>
+    <div class="services-grid">
+      <div class="scard reveal">
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="svc-title">Roof Replacement</div>
+        <div class="svc-desc">Complete tear-off and installation of new roofing systems — shingle, tile, or flat. Built to withstand Fresno's intense valley summers.</div>
+      </div>
+      <div class="scard reveal">
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="svc-title">Leak Repair</div>
+        <div class="svc-desc">Fast diagnosis and lasting repair of roof leaks before they cause water damage. Emergency service available during storm season.</div>
+      </div>
+      <div class="scard reveal">
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="svc-title">Commercial Roofing</div>
+        <div class="svc-desc">Flat roof systems, TPO, and modified bitumen for warehouses, offices, and retail buildings across the Central Valley.</div>
+      </div>
+      <div class="scard reveal">
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+        <div class="svc-title">Solar Roof Prep</div>
+        <div class="svc-desc">Roof sheeting and reinforcement before solar panel installation — protecting your roof's integrity under the added weight.</div>
+      </div>
+      <div class="scard reveal">
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="svc-title">Roof Inspection</div>
+        <div class="svc-desc">Thorough inspections for home purchases, insurance claims, or peace of mind. Detailed photo reports with clear recommendations.</div>
+      </div>
+      <div class="scard reveal">
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        </div>
+        <div class="svc-title">Maintenance & Coating</div>
+        <div class="svc-desc">Preventive maintenance and reflective roof coatings that extend your roof's lifespan and cut cooling costs in the valley heat.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="about-stats-row reveal">
+      <div class="stat-box">
+        <div class="stat-num"><span data-target="20">0</span></div>
+        <div class="stat-label">5-Star Reviews</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num"><span data-target="4">0</span><span class="stat-suf">.8★</span></div>
+        <div class="stat-label">Google Rating</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num"><span data-target="100">0</span><span class="stat-suf">%</span></div>
+        <div class="stat-label">Licensed & Insured</div>
+      </div>
+    </div>
+    <div class="about-body">
+      <p class="section-label reveal">About Hi Tech Roofing</p>
+      <h2 class="about-heading reveal">Built on Trust,<br>One Roof at a Time</h2>
+      <p class="about-text reveal">Hi Tech Roofing Services Co. has been protecting Fresno homes and businesses from the elements with dependable, high-quality roofing. Located at 3164 N Marks Ave in the Marks industrial center, the company is led by Johnathan — an owner known for his honesty and hands-on approach.</p>
+      <p class="about-text reveal">With a <strong>4.8-star rating across 20 reviews</strong>, Hi Tech Roofing has earned the trust of general contractors and homeowners alike. From full roof replacements to solar prep and emergency leak repairs, the team delivers the kind of work that keeps customers coming back.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="section-inner">
+    <p class="section-label reveal">What People Say</p>
+    <h2 class="section-title reveal">Real Reviews From<br>Real Customers</h2>
+    <div class="pull-quote-wrap reveal">
+      <p class="pull-quote-text">After working with Hi Tech Roofing, they are now my go-to roofing company. The highest quality at the lowest cost.</p>
+      <p class="pull-quote-author">— Brian Volenec, General Contractor</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="rcard reveal">
+        <div class="rcard-stars">★★★★★</div>
+        <p class="rcard-text">Excellent roofing done, punctual, fast, great team, honest owner. I definitely will be in contact with them when work is needed again. You won't be disappointed. Highly recommend!</p>
+        <div class="rcard-author">Jennifer B. Kay</div>
+        <div class="rcard-time">4 years ago</div>
+      </div>
+      <div class="rcard reveal">
+        <div class="rcard-stars">★★★★★</div>
+        <p class="rcard-text">I have had Hi-Tech Roofing make several repairs over the years in addition to them removing part of my roof to install sheeting for my solar panels. Johnathan has always been professional and fair.</p>
+        <div class="rcard-author">Gail Hamada</div>
+        <div class="rcard-time">3 years ago</div>
+      </div>
+      <div class="rcard reveal">
+        <div class="rcard-stars">★★★★★</div>
+        <p class="rcard-text">I am a general contractor that specializes in residential and commercial construction. I demand the highest quality at the lowest cost. Hi Tech Roofing is now my go-to roofing company.</p>
+        <div class="rcard-author">Brian Volenec</div>
+        <div class="rcard-time">5 months ago</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <h2 class="contact-heading reveal">Get in Touch</h2>
+      <div class="contact-row reveal">
+        <div class="icon-el ringing">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="contact-detail-label">Phone</div>
+          <div class="contact-detail-val"><a href="tel:5592700917">(559) 270-0917</a></div>
+        </div>
+      </div>
+      <div class="contact-row reveal">
+        <div class="icon-el">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="contact-detail-label">Address</div>
+          <div class="contact-detail-val">3164 N Marks Ave #126<br>Fresno, CA 93722</div>
+        </div>
+      </div>
+      <div class="contact-row reveal">
+        <div class="icon-el">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="contact-detail-label">Location</div>
+          <div class="contact-detail-val">Floor 1 · Marks Industrial Center</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 class="contact-heading reveal">Hours</h2>
+      <table class="hours-table">
+        <tr class="hours-row reveal"><td class="day-label">Monday</td><td>6 AM – 4 PM</td></tr>
+        <tr class="hours-row reveal"><td class="day-label">Tuesday</td><td>6 AM – 4 PM</td></tr>
+        <tr class="hours-row reveal"><td class="day-label">Wednesday</td><td>6 AM – 4 PM</td></tr>
+        <tr class="hours-row reveal"><td class="day-label">Thursday</td><td>6 AM – 4 PM</td></tr>
+        <tr class="hours-row reveal"><td class="day-label">Friday</td><td>6 AM – 4 PM</td></tr>
+        <tr class="hours-row reveal"><td class="day-label">Saturday</td><td>Closed</td></tr>
+        <tr class="hours-row reveal"><td class="day-label">Sunday</td><td>Closed</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="cta-banner">
+  <h2 class="cta-banner-title">Ready for a Roof You Can Trust?</h2>
+  <p class="cta-banner-sub">Call Hi Tech Roofing — free estimates, honest pricing, quality guaranteed.</p>
+  <a href="tel:5592700917" class="cta-banner-btn">
+    Call (559) 270-0917 <span class="cta-arrow">&rarr;</span>
+  </a>
+</section>
+
+<footer id="footer">
+  <span class="footer-brand">Hi Tech Roofing Services Co.</span>
+  <span class="footer-copy">Fresno, CA 93722 &nbsp;&middot;&nbsp; (559) 270-0917 &nbsp;&middot;&nbsp; &copy; 2026</span>
+</footer>
+
+<script>
+const SUN_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+const MOON_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+
+const btn = document.getElementById('themeBtn');
+let dark = false;
+try { dark = localStorage.getItem('theme') === 'dark'; } catch(e) {}
+const applyTheme = () => {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  btn.innerHTML = dark ? MOON_SVG : SUN_SVG;
+};
+applyTheme();
+btn.addEventListener('click', () => {
+  dark = !dark;
+  try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch(e) {}
+  applyTheme();
+  btn.classList.add('spinning');
+  setTimeout(() => btn.classList.remove('spinning'), 370);
+});
+
+const pb = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  pb.style.width = (scrollY / (document.body.scrollHeight - innerHeight) * 100) + '%';
+}, {passive: true});
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 60);
+}, {passive: true});
+
+const heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', () => {
+  heroBg.style.transform = `translateY(${scrollY * 0.25}px)`;
+}, {passive: true});
+
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+const runCount = el => {
+  const from = +(el.dataset.from || 0), to = +el.dataset.target, dur = 1200, t0 = performance.now();
+  const tick = t => {
+    const p = Math.min((t - t0) / dur, 1), ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(from + (to - from) * ease);
+    if(p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+};
+const cio = new IntersectionObserver((ee, obs) => ee.forEach(e => {
+  if(e.isIntersecting) { runCount(e.target); obs.unobserve(e.target); }
+}), {threshold: 0.6});
+document.querySelectorAll('[data-target]').forEach(el => cio.observe(el));
+
+document.querySelectorAll('.hero-cta, .cta-banner-btn').forEach(b => {
+  b.addEventListener('click', e => {
+    const r = document.createElement('span');
+    r.className = 'ripple';
+    const rc = b.getBoundingClientRect(), sz = Math.max(rc.width, rc.height);
+    r.style.cssText = `width:${sz}px;height:${sz}px;left:${e.clientX-rc.left-sz/2}px;top:${e.clientY-rc.top-sz/2}px`;
+    b.appendChild(r);
+    setTimeout(() => r.remove(), 600);
+  });
+});
+
+const _days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+document.querySelectorAll('.hours-row').forEach(r => {
+  if(r.querySelector('.day-label')?.textContent.trim() === _days[new Date().getDay()])
+    r.classList.add('today');
+});
+</script>
+</body>
+</html>

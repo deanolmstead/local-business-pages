@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Central Valley Power Electric — Fresno, CA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    /* ── LIGHT MODE (default) ── */
+    :root{
+      --void:#faf7f2;
+      --deep:#f0ebe1;
+      --surface:#fff;
+      --card:#fff;
+      --gold:#b8860b;
+      --gold-dim:rgba(184,134,11,.08);
+      --gold-border:rgba(184,134,11,.2);
+      --text:#1c1612;
+      --text-muted:#7a6f65;
+      --text-dim:#b0a89e;
+      --strong-text:#1c1612;
+      --nav-scrolled-bg:rgba(228,220,205,.97);
+      --nav-scrolled-border:rgba(0,0,0,.12);
+      --footer-bg:#1c1612;
+      --footer-text:rgba(245,240,230,.45);
+      --card-shadow:0 2px 12px rgba(0,0,0,.07);
+      --card-shadow-hover:0 8px 28px rgba(0,0,0,.13),0 0 0 1px var(--gold-border);
+      --hr-color:rgba(0,0,0,.06);
+    }
+    /* ── DARK MODE (via toggle) ── */
+    [data-theme="dark"]{
+      --void:#080706;
+      --deep:#0f0d0b;
+      --surface:#161310;
+      --card:#1c1916;
+      --gold:#eab308;
+      --gold-dim:rgba(234,179,8,.12);
+      --gold-border:rgba(234,179,8,.25);
+      --text:rgba(245,240,230,.88);
+      --text-muted:rgba(245,240,230,.4);
+      --text-dim:rgba(245,240,230,.22);
+      --strong-text:rgba(255,255,255,.95);
+      --nav-scrolled-bg:rgba(8,7,6,.9);
+      --nav-scrolled-border:rgba(234,179,8,.12);
+      --footer-bg:#040302;
+      --footer-text:rgba(245,240,230,.35);
+      --card-shadow:0 6px 24px rgba(0,0,0,.45);
+      --card-shadow-hover:0 16px 48px rgba(0,0,0,.55),0 0 0 1px var(--gold-border);
+      --hr-color:rgba(255,255,255,.05);
+    }
+    body{font-family:'Inter',sans-serif;background:var(--void);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s}
+
+    /* ── NAV — centered logo, links both sides ── */
+    #nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:grid;grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      padding:1.5rem 4vw;
+      transition:all .3s;
+    }
+    #nav::before{
+      content:'';
+      position:absolute;top:0;left:0;right:0;
+      height:220px;
+      background:linear-gradient(to bottom,rgba(0,0,0,.82) 0%,rgba(0,0,0,.45) 45%,rgba(0,0,0,0) 100%);
+      pointer-events:none;z-index:-1;
+    }
+    #nav.scrolled{
+      background:var(--nav-scrolled-bg);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--nav-scrolled-border);
+      padding:.85rem 4vw;
+    }
+    #nav.scrolled::before{display:none}
+    .nav-left,.nav-right-links{
+      display:flex;align-items:center;gap:2rem;
+    }
+    .nav-right-links{justify-content:flex-end}
+    .nav-link{
+      font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+      color:rgba(255,255,255,.72);text-decoration:none;transition:color .2s;
+    }
+    .nav-link:hover{color:#fff}
+    #nav.scrolled .nav-link{color:var(--text-muted)}
+    #nav.scrolled .nav-link:hover{color:var(--gold)}
+    /* ── TOGGLE ── */
+    .theme-toggle{
+      background:none;border:none;cursor:pointer;
+      display:inline-flex;align-items:center;justify-content:center;
+      width:2rem;height:2rem;padding:.3rem;
+      color:rgba(255,255,255,.72);transition:color .2s;flex-shrink:0;
+      border-radius:999px;
+    }
+    .theme-toggle:hover{color:#fff}
+    #nav.scrolled .theme-toggle{color:var(--text-muted)}
+    #nav.scrolled .theme-toggle:hover{color:var(--gold)}
+
+    .nav-logo{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase;
+      color:rgba(255,255,255,.9);text-align:center;
+      white-space:nowrap;transition:color .3s;
+    }
+    #nav.scrolled .nav-logo{color:var(--strong-text)}
+    .nav-logo span{color:var(--gold)}
+    .nav-cta-pill{
+      background:var(--gold);
+      color:#000 !important;
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+      padding:.45rem 1.2rem;border-radius:999px;
+      text-decoration:none;transition:background .2s;
+    }
+    .nav-cta-pill:hover{background:#f0c020}
+
+    /* ── HERO — full-bleed, text BOTTOM-PINNED, centered ── */
+    #hero{
+      position:relative;height:100vh;min-height:640px;
+      display:flex;align-items:flex-end;
+      overflow:hidden;
+    }
+    #hero-bg{
+      position:absolute;inset:0;
+      background:url('hero.png') center/cover no-repeat;
+      will-change:transform;
+    }
+    /* Heavy bottom overlay for bottom-pinned text */
+    #hero-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(
+        to bottom,
+        rgba(8,7,6,.1) 0%,
+        rgba(8,7,6,.15) 40%,
+        rgba(8,7,6,.72) 70%,
+        rgba(8,7,6,.96) 100%
+      );
+    }
+    .hero-bottom{
+      position:relative;z-index:2;
+      width:100%;
+      padding:0 4vw 4rem;
+      text-align:center;
+    }
+    .hero-category{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:var(--gold-dim);
+      border:1px solid var(--gold-border);
+      color:var(--gold);
+      font-family:'Rajdhani',sans-serif;
+      font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      padding:.35rem .9rem;border-radius:999px;
+      margin-bottom:1.25rem;
+    }
+    .hero-title{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;
+      font-size:clamp(2.4rem,5.5vw,5rem);
+      line-height:1.05;letter-spacing:.02em;
+      color:#fff;text-transform:uppercase;
+      margin-bottom:.5rem;
+    }
+    .hero-title .gold{color:var(--gold)}
+    .hero-subtitle{
+      font-size:clamp(.9rem,1.5vw,1.1rem);font-weight:300;
+      color:var(--text-muted);letter-spacing:.03em;
+      margin-bottom:2rem;
+    }
+.hero-cta-group{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+    .btn-pill-gold{
+      background:var(--gold);color:#000;
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;
+      padding:.8rem 2.5rem;border-radius:999px;
+      text-decoration:none;transition:background .2s;display:inline-block;
+    }
+    .btn-pill-gold:hover{background:#f0c020}
+    .btn-pill-outline{
+      background:transparent;color:rgba(255,255,255,.7);
+      font-family:'Rajdhani',sans-serif;
+      font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;
+      padding:.8rem 2.5rem;border-radius:999px;
+      border:1.5px solid rgba(255,255,255,.2);
+      text-decoration:none;transition:border-color .2s;display:inline-block;
+    }
+    .btn-pill-outline:hover{border-color:rgba(255,255,255,.6)}
+
+    /* ── GOLD DIVIDER STRIP ── */
+    .strip{
+      background:var(--gold);
+      padding:.85rem 4vw;
+      display:flex;align-items:center;justify-content:center;
+      gap:4rem;flex-wrap:wrap;
+    }
+    .strip-stat{text-align:center}
+    .strip-num{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:2rem;line-height:1;color:#000;
+    }
+    .strip-label{font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)}
+
+    /* ── SERVICES — centered header, shadowed-rounded cards ── */
+    .sec{padding:5.5rem 4vw;background:var(--void)}
+    .sec.alt{background:var(--deep)}
+    .sec-hd{text-align:center;margin-bottom:3.5rem}
+    .sec-eyebrow{
+      display:inline-block;
+      font-family:'Rajdhani',sans-serif;
+      font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:.75rem;
+    }
+    .sec-title{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;text-transform:uppercase;
+      font-size:clamp(1.8rem,3vw,2.8rem);
+      letter-spacing:.02em;color:var(--strong-text);
+      line-height:1.05;transition:color .3s;
+    }
+    .sec-sub{
+      font-size:.9rem;color:var(--text-muted);line-height:1.7;
+      max-width:500px;margin:.75rem auto 0;
+    }
+    .svc-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1.25rem;
+    }
+    .svc-card{
+      background:var(--card);
+      border-radius:12px;
+      padding:2rem 1.75rem;
+      box-shadow:var(--card-shadow);
+      transition:transform .25s,box-shadow .25s,background .3s;
+      text-align:center;
+    }
+    .svc-card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--card-shadow-hover);
+    }
+    .svc-ico{font-size:2rem;margin-bottom:.9rem}
+    .svc-card h3{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;text-transform:uppercase;
+      font-size:1.05rem;letter-spacing:.05em;
+      color:var(--strong-text);margin-bottom:.5rem;
+    }
+    .svc-card p{font-size:.83rem;color:var(--text-muted);line-height:1.65}
+
+    /* ── REVIEWS — featured-large + two mini ── */
+    .reviews-grid{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:1.25rem;
+    }
+    .r-large{
+      background:var(--card);border-radius:12px;
+      padding:2.5rem;box-shadow:var(--card-shadow);
+      display:flex;flex-direction:column;transition:background .3s;
+    }
+    .r-mini-col{display:flex;flex-direction:column;gap:1.25rem}
+    .r-mini{
+      background:var(--card);border-radius:12px;
+      padding:1.75rem;box-shadow:var(--card-shadow);
+      flex:1;display:flex;flex-direction:column;transition:background .3s;
+    }
+    .r-stars{color:var(--gold);font-size:.85rem;margin-bottom:.6rem}
+    .r-text{
+      font-size:.9rem;color:var(--text-muted);
+      line-height:1.65;font-style:italic;flex:1;
+    }
+    .r-large .r-text{font-size:1rem}
+    .r-author{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;text-transform:uppercase;
+      font-size:.8rem;letter-spacing:.1em;color:var(--gold);
+      margin-top:1.25rem;
+    }
+    .r-source{font-size:.7rem;color:var(--text-dim);margin-top:.15rem}
+
+    /* ── HOURS — centered, clean ── */
+    .hours-center{
+      max-width:680px;margin:0 auto;
+      display:grid;grid-template-columns:1fr 1fr;gap:3rem;
+    }
+    .hrow{
+      display:flex;justify-content:space-between;
+      padding:.7rem 0;border-bottom:1px solid var(--hr-color);
+    }
+    .hrow:last-child{border:none}
+    .hday{font-size:.9rem;font-weight:500;color:var(--text)}
+    .htime{font-size:.85rem;color:var(--text-muted)}
+    .htime.closed{color:var(--text-dim)}
+    .contact-center{display:flex;flex-direction:column;gap:1.25rem;justify-content:center}
+    .cc{
+      display:flex;align-items:center;gap:.9rem;
+      background:var(--surface);border-radius:10px;
+      padding:1rem 1.25rem;
+    }
+    .cc-ico{
+      width:36px;height:36px;flex-shrink:0;
+      background:var(--gold-dim);border:1px solid var(--gold-border);
+      border-radius:8px;display:flex;align-items:center;justify-content:center;
+      color:var(--gold);
+    }
+    .cc-lbl{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.15rem}
+    .cc-val{font-size:.9rem;font-weight:500;color:rgba(255,255,255,.8)}
+    .cc-val a{color:inherit;text-decoration:none}
+    .cc-val a:hover{color:var(--gold)}
+    .btn-pill-gold-sm{
+      display:inline-block;text-align:center;width:100%;
+      background:var(--gold);color:#000;
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;
+      padding:.75rem 1.5rem;border-radius:999px;
+      text-decoration:none;transition:background .2s;margin-top:.5rem;
+    }
+    .btn-pill-gold-sm:hover{background:#f0c020}
+
+    /* ── ABOUT — timeline style, centered ── */
+    .about-intro{
+      text-align:center;max-width:640px;margin:0 auto 3.5rem;
+    }
+    .about-intro p{font-size:.95rem;color:var(--text-muted);line-height:1.8}
+    .timeline{
+      max-width:680px;margin:0 auto;
+      display:flex;flex-direction:column;gap:0;
+      position:relative;
+    }
+    .timeline::before{
+      content:'';
+      position:absolute;left:50%;top:0;bottom:0;
+      width:1px;background:rgba(234,179,8,.15);
+      transform:translateX(-50%);
+    }
+    .tl-item{
+      display:grid;grid-template-columns:1fr 48px 1fr;
+      gap:1rem;align-items:start;
+      margin-bottom:2.5rem;
+    }
+    .tl-left{text-align:right;padding-right:.5rem}
+    .tl-right{text-align:left;padding-left:.5rem}
+    .tl-center{
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+      padding-top:.2rem;
+    }
+    .tl-dot{
+      width:14px;height:14px;border-radius:999px;
+      background:var(--gold);
+      box-shadow:0 0 0 4px var(--gold-dim), 0 0 0 1px var(--gold-border);
+      flex-shrink:0;
+    }
+    .tl-year{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:.3rem;
+    }
+    .tl-title{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:1rem;text-transform:uppercase;
+      letter-spacing:.04em;color:var(--strong-text);margin-bottom:.3rem;
+    }
+    .tl-body{font-size:.82rem;color:var(--text-muted);line-height:1.65}
+
+    /* ── FOOTER ── */
+    footer{
+      background:var(--footer-bg);
+      color:var(--footer-text);
+      border-top:1px solid rgba(255,255,255,.04);
+      padding:3rem 4vw 2rem;
+      transition:background .3s;
+    }
+    .foot-inner{
+      display:flex;align-items:center;justify-content:center;
+      flex-direction:column;gap:1.25rem;
+      text-align:center;margin-bottom:2rem;
+    }
+    .foot-logo{
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;font-size:1.4rem;letter-spacing:.1em;text-transform:uppercase;
+      color:rgba(245,240,230,.7);
+    }
+    .foot-logo span{color:var(--gold)}
+    .foot-links{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center}
+    .foot-links a{
+      font-size:.78rem;color:var(--text-dim);
+      text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;
+    }
+    .foot-links a:hover{color:var(--gold)}
+    .foot-info{font-size:.78rem;color:var(--text-dim);line-height:1.7}
+    .foot-info a{color:inherit;text-decoration:none}
+    .foot-info a:hover{color:var(--gold)}
+    .foot-bottom{
+      border-top:1px solid rgba(255,255,255,.04);
+      padding-top:1.5rem;text-align:center;
+      font-size:.68rem;color:rgba(255,255,255,.15);
+    }
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      #nav{grid-template-columns:1fr auto}
+      .nav-left{display:none}
+      .nav-right-links{gap:1rem}
+      .reviews-grid{grid-template-columns:1fr}
+      .hours-center{grid-template-columns:1fr;max-width:400px}
+      .timeline::before{left:24px}
+      .tl-item{grid-template-columns:24px 1fr;grid-template-areas:"dot body"}
+      .tl-left{display:none}
+      .tl-center{grid-area:dot;justify-content:flex-start;align-items:flex-start}
+      .tl-right{grid-area:body;text-align:left;padding-left:0}
+    }
+    @media(max-width:640px){
+      #nav{padding:1rem 4vw}
+      .nav-link:not(.nav-cta-pill){display:none}
+      .sec{padding:3.5rem 4vw}
+      .strip{gap:2rem}
+    }
+
+    /* ── MICRO-INTERACTIONS ── */
+    /* Scroll progress bar — pill-tipped, gold */
+    #prog{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0%;z-index:300;pointer-events:none;border-radius:0 999px 999px 0;transition:width .08s linear}
+    /* Nav link underline — expands from center */
+    .nav-link{position:relative}
+    .nav-link::after{content:'';position:absolute;left:50%;bottom:-4px;width:0;height:2px;background:var(--gold);border-radius:999px;transition:width .22s ease,left .22s ease}
+    .nav-link:hover::after{width:100%;left:0}
+    /* Service card icon scale bounce */
+    .svc-card .svc-ico{display:inline-block;transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+    .svc-card:hover .svc-ico{transform:scale(1.35)}
+    /* Review card lift */
+    .r-large,.r-mini{transition:transform .25s ease,box-shadow .25s ease,background .3s}
+    .r-large:hover,.r-mini:hover{transform:translateY(-5px);box-shadow:var(--card-shadow-hover)}
+    /* Button ripple */
+    .btn-pill-gold,.btn-pill-gold-sm{position:relative;overflow:hidden}
+    .ripple{position:absolute;border-radius:50%;background:rgba(0,0,0,.1);transform:scale(0);animation:ripple .55s linear;pointer-events:none}
+    @keyframes ripple{to{transform:scale(4);opacity:0}}
+    /* Button press feedback */
+    .btn-pill-gold:active,.btn-pill-gold-sm:active{transform:scale(.96)}
+    /* Phone icon gold pulse */
+    @keyframes gd-ring{0%{box-shadow:0 0 0 0 rgba(184,134,11,.55)}70%{box-shadow:0 0 0 10px rgba(184,134,11,0)}100%{box-shadow:0 0 0 0 rgba(184,134,11,0)}}
+    .cc-ico.ringing{animation:gd-ring 2.2s ease-out infinite}
+    /* Timeline dot glow on row hover */
+    .tl-dot{transition:transform .3s ease,box-shadow .3s ease}
+    .tl-item:hover .tl-dot{transform:scale(1.55);box-shadow:0 0 0 6px rgba(184,134,11,.18)}
+    /* Theme toggle spin on click */
+    .theme-toggle svg{transition:transform .38s cubic-bezier(.34,1.56,.64,1)}
+    .theme-toggle.spinning svg{transform:rotate(200deg) scale(.7)}
+    /* Today's hours row highlight */
+    .hrow.today{background:rgba(184,134,11,.07);padding-left:.5rem;padding-right:.5rem;margin:0 -.5rem;border-radius:4px}
+    .hrow.today .hday{color:var(--gold);font-weight:600}
+  </style>
+</head>
+<body>
+
+<!-- NAV — centered logo -->
+<nav id="nav">
+  <div class="nav-left">
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#hours" class="nav-link">Hours</a>
+  </div>
+  <div class="nav-logo">CV <span>Power</span> Electric</div>
+  <div class="nav-right-links">
+    <a href="#reviews" class="nav-link">Reviews</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <a href="tel:5598311723" class="nav-link nav-cta-pill">Call Now</a>
+  </div>
+</nav>
+
+<!-- HERO — full-bleed, text bottom-pinned, centered -->
+<section id="hero">
+  <div id="hero-bg"></div>
+  <div id="hero-overlay"></div>
+  <div class="hero-bottom">
+    <div class="hero-category">⚡ 3rd Generation · Est. 1979 · Fresno, CA</div>
+    <h1 class="hero-title">Central Valley<br><span class="gold">Power Electric</span></h1>
+    <p class="hero-subtitle">Commercial · Residential · Industrial · Agricultural</p>
+    <div class="hero-cta-group">
+      <a href="tel:5598311723" class="btn-pill-gold">Call (559) 831-1723</a>
+      <a href="#services" class="btn-pill-outline">See Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- GOLD STRIP STATS -->
+<div class="strip">
+  <div class="strip-stat"><div class="strip-num">3rd</div><div class="strip-label">Generation Electrician</div></div>
+  <div class="strip-stat"><div class="strip-num" data-target="1979" data-from="1970">1979</div><div class="strip-label">Family Legacy Since</div></div>
+  <div class="strip-stat"><div class="strip-num" data-target="4">4</div><div class="strip-label">Market Sectors</div></div>
+  <div class="strip-stat"><div class="strip-num" data-target="103">103</div><div class="strip-label">BuildZoom Score</div></div>
+</div>
+
+<!-- SERVICES — centered header, shadowed-rounded cards -->
+<section id="services" class="sec">
+  <div class="sec-hd">
+    <div class="sec-eyebrow reveal">What We Do</div>
+    <h2 class="sec-title reveal rd1">Full-Spectrum Electrical Services</h2>
+    <p class="sec-sub reveal rd2">One licensed crew for every electrical job in the Central Valley — from farm irrigation panels to commercial tenant builds.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card reveal"><div class="svc-ico">🏠</div><h3>Residential</h3><p>Panel upgrades, wiring, outlets, EV chargers, and full home electrical projects for Fresno homeowners.</p></div>
+    <div class="svc-card reveal rd1"><div class="svc-ico">🏢</div><h3>Commercial</h3><p>Retail lighting builds, tenant improvements, service upgrades, and new commercial construction electrical.</p></div>
+    <div class="svc-card reveal rd2"><div class="svc-ico">🏭</div><h3>Industrial</h3><p>Motor controls, 3-phase power, plant maintenance, and high-demand industrial electrical installations.</p></div>
+    <div class="svc-card reveal rd3"><div class="svc-ico">🌾</div><h3>Agricultural</h3><p>Pump stations, irrigation panels, well systems, and agricultural power across the Central Valley.</p></div>
+    <div class="svc-card reveal rd2"><div class="svc-ico">⚡</div><h3>Panel &amp; Sub-Panel</h3><p>Main panel replacements, sub-panel installs, and load calculations for multi-unit residential properties.</p></div>
+    <div class="svc-card reveal rd3"><div class="svc-ico">🔌</div><h3>EV Charging</h3><p>Tesla Wall Connector and Level 2 EV charger installation for homes and commercial facilities.</p></div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section id="hours" class="sec alt">
+  <div class="sec-hd">
+    <div class="sec-eyebrow reveal">Find Us</div>
+    <h2 class="sec-title reveal rd1">Hours &amp; Contact</h2>
+  </div>
+  <div class="hours-center">
+    <div class="reveal rd1">
+      <div class="hrow"><span class="hday">Monday</span><span class="htime">6:00 AM – 7:00 PM</span></div>
+      <div class="hrow"><span class="hday">Tuesday</span><span class="htime">6:00 AM – 7:00 PM</span></div>
+      <div class="hrow"><span class="hday">Wednesday</span><span class="htime">6:00 AM – 7:00 PM</span></div>
+      <div class="hrow"><span class="hday">Thursday</span><span class="htime">6:00 AM – 7:00 PM</span></div>
+      <div class="hrow"><span class="hday">Friday</span><span class="htime">6:00 AM – 7:00 PM</span></div>
+      <div class="hrow"><span class="hday">Saturday</span><span class="htime">6:00 AM – 7:00 PM</span></div>
+      <div class="hrow"><span class="hday">Sunday</span><span class="htime closed">Closed</span></div>
+    </div>
+    <div class="contact-center reveal rd2">
+      <div class="cc">
+        <div class="cc-ico"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+        <div><div class="cc-lbl">Phone</div><div class="cc-val"><a href="tel:5598311723">(559) 831-1723</a></div></div>
+      </div>
+      <div class="cc">
+        <div class="cc-ico"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg></div>
+        <div><div class="cc-lbl">Address</div><div class="cc-val">8697 N Fuller Ave, Fresno CA 93720</div></div>
+      </div>
+      <div class="cc">
+        <div class="cc-ico"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div><div class="cc-lbl">License</div><div class="cc-val">CA Licensed · Top 10% BuildZoom</div></div>
+      </div>
+      <a href="tel:5598311723" class="btn-pill-gold-sm">Get a Free Estimate</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS — featured large + two mini -->
+<section id="reviews" class="sec">
+  <div class="sec-hd">
+    <div class="sec-eyebrow reveal">Customer Reviews</div>
+    <h2 class="sec-title reveal rd1">Trusted By Fresno</h2>
+    <p class="sec-sub reveal rd2">From landlords upgrading rental panels to businesses building out new spaces — here's what they said.</p>
+  </div>
+  <div class="reviews-grid reveal rd2">
+    <div class="r-large">
+      <div class="r-stars">★★★★★</div>
+      <p class="r-text">"The owner Michael was so helpful in helping us achieve our vision for lighting for our business. He came up with creative solutions that saved us a ton of money. Amazing work from start to finish — we couldn't be happier."</p>
+      <div class="r-author">Sandra K.</div>
+      <div class="r-source">Google Review</div>
+    </div>
+    <div class="r-mini-col">
+      <div class="r-mini">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-text">"Mike upgraded all sub panels at my rental property and handled the job really well, working around tenant schedules without any issues."</p>
+        <div class="r-author">Frank B.</div>
+        <div class="r-source">Google Review</div>
+      </div>
+      <div class="r-mini">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-text">"Really liked Michael during his initial evaluation for our Tesla Wall Connector. Very knowledgeable and amicable. Will use again."</p>
+        <div class="r-author">Chris P.</div>
+        <div class="r-source">Google Review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT — timeline style -->
+<section id="about" class="sec alt">
+  <div class="sec-hd">
+    <div class="sec-eyebrow reveal">Our Story</div>
+    <h2 class="sec-title reveal rd1">Three Generations of Power</h2>
+  </div>
+  <div class="about-intro reveal rd2">
+    <p>Central Valley Power Electric is a family business that spans three generations and four decades of electrical work. What started in Monterey in 1979 now serves Fresno's homes, farms, factories, and businesses.</p>
+  </div>
+  <div class="timeline reveal rd3">
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-year">1979</div>
+        <div class="tl-title">The First Generation</div>
+        <div class="tl-body">The family's electrical business is founded in Monterey, California — building a reputation for quality work on the Central Coast.</div>
+      </div>
+      <div class="tl-center"><div class="tl-dot"></div></div>
+      <div class="tl-right"></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"></div>
+      <div class="tl-center"><div class="tl-dot"></div></div>
+      <div class="tl-right">
+        <div class="tl-year">2000s</div>
+        <div class="tl-title">Second Generation Grows</div>
+        <div class="tl-body">The business expands across California. The next generation joins, bringing new skills to residential, commercial, and industrial markets.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-year">2020</div>
+        <div class="tl-title">CV Power Electric Founded</div>
+        <div class="tl-body">CEO Michael — 3rd generation, 25+ years experience — establishes Central Valley Power Electric in Fresno to serve the entire Central Valley.</div>
+      </div>
+      <div class="tl-center"><div class="tl-dot"></div></div>
+      <div class="tl-right"></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"></div>
+      <div class="tl-center"><div class="tl-dot"></div></div>
+      <div class="tl-right">
+        <div class="tl-year">Today</div>
+        <div class="tl-title">Serving All of Fresno</div>
+        <div class="tl-body">Top 10% CA licensed contractor. Residential, commercial, industrial, and agricultural clients across the Central Valley.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER — minimal centered -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">CV <span>Power</span> Electric</div>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#hours">Hours</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#about">About</a>
+    </div>
+    <div class="foot-info">
+      8697 N Fuller Ave · Fresno, CA 93720<br>
+      <a href="tel:5598311723">(559) 831-1723</a> · Mon–Sat 6AM–7PM
+    </div>
+  </div>
+  <div class="foot-bottom">&copy; 2026 Central Valley Power Electric, Inc. · CA Licensed · Fresno, CA</div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+
+  // Parallax hero
+  const bg=document.getElementById('hero-bg');
+  window.addEventListener('scroll',()=>bg.style.transform=`translateY(${scrollY*.4}px)`,{passive:true});
+
+  // Scroll reveal
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+  }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Dark/light toggle
+  const SUN_SVG=`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const MOON_SVG=`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  const btn=document.getElementById('theme-toggle');
+  const apply=dark=>{
+    document.documentElement.setAttribute('data-theme',dark?'dark':'');
+    btn.innerHTML=dark?MOON_SVG:SUN_SVG;
+    btn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+    try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){}
+  };
+  const saved=()=>{try{return localStorage.getItem('theme')}catch(e){return null}};
+  apply(saved()==='dark');
+  btn.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')!=='dark'));
+
+  // ── MICRO-INTERACTIONS ──
+
+  // Scroll progress bar
+  const _pb=document.createElement('div');_pb.id='prog';document.body.prepend(_pb);
+  window.addEventListener('scroll',()=>_pb.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%',{passive:true});
+
+  // Animated number counters (supports data-from for ranges like 1970→1979)
+  const runCount=el=>{
+    const from=+(el.dataset.from||0),to=+el.dataset.target,dur=1200,t0=performance.now();
+    const tick=t=>{const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(from+(to-from)*e);if(p<1)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);
+  };
+  const cio=new IntersectionObserver((ee,obs)=>ee.forEach(e=>{if(e.isIntersecting){runCount(e.target);obs.unobserve(e.target)}}),{threshold:.6});
+  document.querySelectorAll('[data-target]').forEach(el=>cio.observe(el));
+
+  // Button ripple
+  document.querySelectorAll('.btn-pill-gold,.btn-pill-gold-sm').forEach(b=>b.addEventListener('click',e=>{
+    const r=document.createElement('span');r.className='ripple';
+    const rc=b.getBoundingClientRect(),sz=Math.max(rc.width,rc.height);
+    r.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-rc.left-sz/2}px;top:${e.clientY-rc.top-sz/2}px`;
+    b.appendChild(r);setTimeout(()=>r.remove(),600);
+  }));
+
+  // Phone icon pulse
+  document.querySelector('.cc a[href^="tel"]')?.closest('.cc')?.querySelector('.cc-ico')?.classList.add('ringing');
+
+  // Today's hours highlight
+  const _days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  document.querySelectorAll('.hrow').forEach(r=>{if(r.querySelector('.hday')?.textContent.trim()===_days[new Date().getDay()])r.classList.add('today')});
+
+  // Toggle spin feedback
+  btn.addEventListener('click',()=>{btn.classList.add('spinning');setTimeout(()=>btn.classList.remove('spinning'),400)});
+</script>
+</body>
+</html>
